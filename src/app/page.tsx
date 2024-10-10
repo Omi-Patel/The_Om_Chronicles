@@ -363,17 +363,17 @@ export default function Page() {
                     "TypeScript",
                     "Tailwind CSS",
                   ],
-                  color: "blue" as "blue",
+                  color: "blue",
                 } as const,
                 {
                   category: "Backend Technology",
                   skills: ["NodeJS", "ExpressJS", "REST API", "JWT", "Bcrypt"],
-                  color: "green" as "green",
+                  color: "green",
                 } as const,
                 {
                   category: "Database",
                   skills: ["MongoDB", "Firebase", "MySQL"],
-                  color: "yellow" as "yellow",
+                  color: "yellow",
                 } as const,
                 {
                   category: "Other Tools / Technology",
@@ -385,7 +385,7 @@ export default function Page() {
                     "Netlify",
                     "Render",
                   ],
-                  color: "purple" as "purple",
+                  color: "purple",
                 } as const,
               ].map((category, index) => (
                 <motion.div
