@@ -1,6 +1,5 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   ChevronRight,
@@ -305,12 +304,12 @@ export default function page() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <h3 className="text-xl sm:text-2xl font-semibold mb-4">
-                  Hello, I'm Om Patel
+                  Hello, I&apos;m Om Patel
                 </h3>
                 <p className="text-base sm:text-lg mb-4">
-                  I'm a passionate full stack developer with a knack for turning
+                  I&apos;m a passionate full stack developer with a knack for turning
                   complex problems into elegant, efficient solutions. With an
-                  experience in the ever-evolving world of web development, I've
+                  experience in the ever-evolving world of web development, I&apos;ve
                   honed my skills in both front-end and back-end technologies.
                 </p>
                 <p className="text-base sm:text-lg mb-4">
@@ -320,10 +319,10 @@ export default function page() {
                   every aspect of the development process.
                 </p>
                 <p className="text-base sm:text-lg mb-6">
-                  I'm a Full stack developer with a passion for building
-                  top-notch websites. I've a solid understanding of both
-                  Frontend and Backend development and I can't wait to utilize
-                  my skills in the workplace. I'm a quick learner and am certain
+                  I&apos;m a Full stack developer with a passion for building
+                  top-notch websites. I&apos;ve a solid understanding of both
+                  Frontend and Backend development and I can&apos;t wait to utilize
+                  my skills in the workplace. I&apos;m a quick learner and am certain
                   that I can be a valueable asset to any web development team.
                 </p>
                 <div className="flex">
