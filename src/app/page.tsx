@@ -187,7 +187,7 @@ export default function Page() {
               className="text-lg sm:text-xl font-semibold mb-4"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.7 }}
             >
               Hello 👋, I am
             </motion.p>
@@ -277,12 +277,7 @@ export default function Page() {
           <div className="container mx-auto px-4 ">
             <h2 className="text-2xl sm:text-3xl font-bold mb-8 ">About Me :</h2>
             <div className="flex flex-col md:flex-row items-center gap-8">
-              <motion.div
-                className="w-full md:w-1/3 flex justify-center"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
+              <div className="w-full md:w-1/3 flex justify-center">
                 <Image
                   src="https://res.cloudinary.com/dzg2xzsdm/image/upload/v1728492215/om-img_m3w6s2.jpg"
                   alt="John Doe"
@@ -296,13 +291,8 @@ export default function Page() {
                       "linear-gradient(to bottom, black 50%, transparent 100%)",
                   }}
                 />
-              </motion.div>
-              <motion.div
-                className="w-full md:w-2/3 bg-secondary text-primary rounded-3xl shadow-lg p-4 sm:p-8"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
+              </div>
+              <div className="w-full md:w-2/3 bg-secondary text-primary rounded-3xl shadow-lg p-4 sm:p-8">
                 <h3 className="text-xl sm:text-2xl font-semibold mb-4">
                   Hello, I&apos;m Om Patel
                 </h3>
@@ -340,7 +330,7 @@ export default function Page() {
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -388,13 +378,7 @@ export default function Page() {
                   color: "purple",
                 } as const,
               ].map((category, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className=""
-                >
+                <div key={index}>
                   <Card className="dark:bg-secondary shadow-lg">
                     <CardHeader>
                       <CardTitle className="text-lg sm:text-xl">
@@ -421,7 +405,7 @@ export default function Page() {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -465,12 +449,7 @@ export default function Page() {
                   githubUrl: "https://github.com/Omi-Patel",
                 },
               ].map((project, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
+                <div key={index}>
                   <Card className="hover:shadow-lg transition-shadow duration-300 h-full flex flex-col ">
                     <CardHeader>
                       <CardTitle className="text-xl tracking-wider">
@@ -495,7 +474,7 @@ export default function Page() {
                       </Link>
                     </div>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
