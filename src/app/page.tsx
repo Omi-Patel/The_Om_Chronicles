@@ -27,7 +27,7 @@ import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ModeToggle";
 
-export default function page() {
+export default function Page() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -307,10 +307,11 @@ export default function page() {
                   Hello, I&apos;m Om Patel
                 </h3>
                 <p className="text-base sm:text-lg mb-4">
-                  I&apos;m a passionate full stack developer with a knack for turning
-                  complex problems into elegant, efficient solutions. With an
-                  experience in the ever-evolving world of web development, I&apos;ve
-                  honed my skills in both front-end and back-end technologies.
+                  I&apos;m a passionate full stack developer with a knack for
+                  turning complex problems into elegant, efficient solutions.
+                  With an experience in the ever-evolving world of web
+                  development, I&apos;ve honed my skills in both front-end and
+                  back-end technologies.
                 </p>
                 <p className="text-base sm:text-lg mb-4">
                   My journey in tech has been driven by curiosity and a constant
@@ -321,9 +322,10 @@ export default function page() {
                 <p className="text-base sm:text-lg mb-6">
                   I&apos;m a Full stack developer with a passion for building
                   top-notch websites. I&apos;ve a solid understanding of both
-                  Frontend and Backend development and I can&apos;t wait to utilize
-                  my skills in the workplace. I&apos;m a quick learner and am certain
-                  that I can be a valueable asset to any web development team.
+                  Frontend and Backend development and I can&apos;t wait to
+                  utilize my skills in the workplace. I&apos;m a quick learner
+                  and am certain that I can be a valueable asset to any web
+                  development team.
                 </p>
                 <div className="flex">
                   <Link href={"https://linktr.ee/Om_Patel_07"} target="_blank">
@@ -362,17 +364,17 @@ export default function page() {
                     "Tailwind CSS",
                   ],
                   color: "blue" as "blue",
-                },
+                } as const,
                 {
                   category: "Backend Technology",
                   skills: ["NodeJS", "ExpressJS", "REST API", "JWT", "Bcrypt"],
                   color: "green" as "green",
-                },
+                } as const,
                 {
                   category: "Database",
                   skills: ["MongoDB", "Firebase", "MySQL"],
                   color: "yellow" as "yellow",
-                },
+                } as const,
                 {
                   category: "Other Tools / Technology",
                   skills: [
@@ -384,7 +386,7 @@ export default function page() {
                     "Render",
                   ],
                   color: "purple" as "purple",
-                },
+                } as const,
               ].map((category, index) => (
                 <motion.div
                   key={index}
@@ -739,7 +741,7 @@ export default function page() {
         </section>
       </main>
 
-      <footer className=" text-primary py-6 w-full" >
+      <footer className=" text-primary py-6 w-full">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8 flex justify-center items-center">
           <p className="text-sm ">
             © 2024 OM PATEL - All rights reserved by developer.
