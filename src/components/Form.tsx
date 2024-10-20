@@ -9,7 +9,7 @@ export default function Form() {
     reset,
     control,
     formState: { errors, isSubmitSuccessful, isSubmitting },
-  } = useForm({
+  } = useForm<FormData>({
     mode: "onTouched",
   });
   const [isSuccess, setIsSuccess] = React.useState(false);
@@ -21,11 +21,20 @@ export default function Form() {
     defaultValue: "",
   });
 
+  interface FormData {
+    from_name: string;
+    email: string;
+    message: string;
+    access_key: string;
+    subject: string;
+    botcheck: boolean;
+  }
+
   useEffect(() => {
     setValue("subject", `${userName} sent a message from Portfolio`);
   }, [userName, setValue]);
 
-  const onSubmit = async (data: any, e?: { target: { reset: () => void; }; }) => {
+  const onSubmit = async (data: FormData, e?: React.BaseSyntheticEvent) => {
     await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
