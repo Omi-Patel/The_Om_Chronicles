@@ -25,7 +25,7 @@ export default function Form() {
     setValue("subject", `${userName} sent a message from Portfolio`);
   }, [userName, setValue]);
 
-  const onSubmit = async (data: any, e?: React.BaseSyntheticEvent) => {
+  const onSubmit = async (data: any, e?: { target: { reset: () => void; }; }) => {
     await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
@@ -35,7 +35,7 @@ export default function Form() {
       body: JSON.stringify(data, null, 2),
     })
       .then(async (response) => {
-        let json = await response.json();
+        const json = await response.json();
         if (json.success) {
           setIsSuccess(true);
           setMessage(json.message);
