@@ -26,6 +26,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ModeToggle";
+import Form from "@/components/Form";
 
 export default function Page() {
   const [activeSection, setActiveSection] = useState("home");
@@ -653,7 +654,7 @@ export default function Page() {
             <h2 className="text-3xl font-bold mb-8">Contact Me : </h2>
             <Card className="max-w-5xl mx-auto">
               <CardHeader>
-                <CardTitle className="text-3xl mb-6">Get in Touch</CardTitle>
+                <CardTitle className="text-3xl mb-6">Get in Touch..👋</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -671,48 +672,8 @@ export default function Page() {
                       <span>Bilimora, Gujarat</span>
                     </div>
                   </div>
-                  <form className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block mb-2 font-medium">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block mb-2 font-medium">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="message"
-                        className="block mb-2 font-medium"
-                      >
-                        Message
-                      </label>
-                      <textarea
-                        id="message"
-                        rows={4}
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200"
-                      ></textarea>
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-auto flex justify-center items-center gap-2"
-                    >
-                      <Send size={18} />
-                      Send Message
-                    </Button>
-                  </form>
+
+                  <Form />
                 </div>
               </CardContent>
             </Card>
