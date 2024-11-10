@@ -279,16 +279,16 @@ export default function Page() {
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="w-full md:w-1/3 flex justify-center">
                 <Image
-                  src="https://res.cloudinary.com/dzg2xzsdm/image/upload/v1728492215/om-img_m3w6s2.jpg"
+                  src="https://res.cloudinary.com/omicloud07/image/upload/v1716871034/my_photo_ddfczq.jpg"
                   alt="John Doe"
                   width={450}
                   height={450}
                   className="rounded-full border-4 border-primary shadow-lg"
                   style={{
                     WebkitMaskImage:
-                      "linear-gradient(to bottom, black 50%, transparent 100%)",
+                      "linear-gradient(to bottom, black 80%, transparent 100%)",
                     maskImage:
-                      "linear-gradient(to bottom, black 50%, transparent 100%)",
+                      "linear-gradient(to bottom, black 80%, transparent 100%)",
                   }}
                 />
               </div>
@@ -448,6 +448,12 @@ export default function Page() {
                   src: "https://resumifyx.vercel.app/",
                   githubUrl: "https://github.com/Omi-Patel",
                 },
+                {
+                  title: "Saarthi_EngStudy",
+                  desc: "A study material sharing platform with secure uploads, cloud storage, and a smooth user experience, powered by Next.js, MongoDB, and Vercel.",
+                  src: "https://saarthi-engstudy.vercel.app/",
+                  githubUrl: "https://github.com/Omi-Patel",
+                },
               ].map((project, index) => (
                 <div key={index}>
                   <Card className="hover:shadow-lg transition-shadow duration-300 h-full flex flex-col ">
@@ -460,13 +466,13 @@ export default function Page() {
                       <p>{project.desc}</p>
                     </CardContent>
                     <div className="p-4 flex justify-between">
-                      <Link href={project.src}>
+                      <Link href={project.src} target="_blank">
                         <Button variant="outline" className="flex items-center">
                           <Eye className="mr-2 h-4 w-4" />
                           View Project
                         </Button>
                       </Link>
-                      <Link href={project.githubUrl}>
+                      <Link href={project.githubUrl} target="_blank">
                         <Button variant="outline" className="flex items-center">
                           <Code className="mr-2 h-4 w-4" />
                           View Code
@@ -485,8 +491,8 @@ export default function Page() {
         <section id="services" className="py-16 text-primary">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8">Services I Offer : </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="hover:shadow-lg transition-shadow duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
+              <Card className="hover:shadow-lg transition-shadow duration-300 bg-secondary">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Monitor className="mr-2 h-5 w-5" />
@@ -500,7 +506,7 @@ export default function Page() {
                   performance, to deliver seamless user experiences.
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-lg transition-shadow duration-300">
+              <Card className="hover:shadow-lg transition-shadow duration-300 bg-secondary">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Server className="mr-2 h-5 w-5" />
@@ -515,7 +521,7 @@ export default function Page() {
                   of web applications.
                 </CardContent>
               </Card>
-              <Card className="hover:shadow-lg transition-shadow duration-300">
+              <Card className="hover:shadow-lg transition-shadow duration-300 bg-secondary">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Terminal className="mr-2 h-5 w-5" />
@@ -653,7 +659,9 @@ export default function Page() {
             <h2 className="text-3xl font-bold mb-8">Contact Me : </h2>
             <Card className="max-w-5xl mx-auto">
               <CardHeader>
-                <CardTitle className="text-3xl mb-6">Get in Touch..👋</CardTitle>
+                <CardTitle className="text-3xl mb-6">
+                  Get in Touch..👋
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
