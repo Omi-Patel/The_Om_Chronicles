@@ -322,7 +322,7 @@ export default function Page() {
                     <Button
                       className="flex items-center px-4 py-2 sm:px-6 sm:py-3"
                       onClick={() =>
-                        window.open("https://twitter.com/johndoe", "_blank")
+                        window.open("https://twitter.com/om_patel07", "_blank")
                       }
                     >
                       <UserPlus className="mr-2 h-4 w-4" />
