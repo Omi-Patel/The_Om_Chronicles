@@ -263,7 +263,7 @@ export default function Page() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              OM PATEL
+              <span style={{ fontFamily: "Montserrat" }}>Om Patel</span>
             </motion.h1>
             <motion.div
               className="text-lg sm:text-lg md:text-xl lg:text-2xl mb-4 flex items-center justify-center"
@@ -273,7 +273,7 @@ export default function Page() {
             >
               <Badge
                 variant="secondary"
-                className="px-3 py-1 text-base sm:text-lg border-teal-500 text-teal-500"
+                className="px-4 py-1 text-base sm:text-lg border-teal-500 text-teal-500 rounded-full"
               >
                 Software Developer
               </Badge>
@@ -648,6 +648,14 @@ export default function Page() {
                     "https://github.com/Omi-Patel/Saarthi_EngStudy_Frontend",
                   tags: ["Next.js", "MongoDB", "Cloud Storage"],
                 },
+                {
+                  title: "Veltrix | Project Management System",
+                  desc: "Simplify your team's workflow, collaborate in real-time, and meet every deadline — all in one platform.",
+                  src: "https://project-management-client-eosin.vercel.app/",
+                  githubUrl:
+                    "https://github.com/Omi-Patel/Project_Management_Client",
+                  tags: ["React.js", "PostgreSQL", "Spring Boot", "Kotlin"],
+                },
               ].map((project, index) => (
                 <motion.div
                   key={index}
@@ -657,9 +665,11 @@ export default function Page() {
                   viewport={{ once: true }}
                 >
                   <Card className="h-full flex flex-col border rounded-xl overflow-hidden p-2">
-                    <CardHeader className="pb-2 pt-3 px-4 font-mono">
+                    <CardHeader className="pb-2 pt-3 px-4">
                       <CardTitle className="text-xl tracking-wide group-hover:text-teal-500 transition-colors">
-                        {project.title}
+                        <span style={{ fontFamily: "Montserrat" }}>
+                          {project.title}
+                        </span>
                       </CardTitle>
                     </CardHeader>
 
