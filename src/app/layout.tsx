@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     url: "https://the-om-chronicles.vercel.app/",
     images: [
       {
-        url: "https://res.cloudinary.com/omicloud07/image/upload/v1753012010/Screenshot_2025-07-20_171237_t0wyqo.png",
-        width: 800,
-        height: 400,
+        url: "https://res.cloudinary.com/omicloud07/image/upload/v1753013438/ogimage_q1p6gt.png",
+        width: 1200,
+        height: 630,
         alt: "OM PATEL OG Image",
       },
     ],
