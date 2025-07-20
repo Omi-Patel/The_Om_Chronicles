@@ -2,13 +2,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ChevronRight,
   Code,
   Mail,
   Phone,
   MapPin,
   Briefcase,
-  GraduationCap,
   Github,
   Linkedin,
   Twitter,
@@ -16,21 +14,17 @@ import {
   Server,
   Terminal,
   UserPlus,
-  X,
   ExternalLink,
   Send,
   ArrowUp,
-  PanelLeftClose,
+  Calendar,
+  Star,
+  AlignRight,
+  File,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
@@ -43,6 +37,51 @@ import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ModeToggle";
 import Form from "@/components/Form";
+
+// Corner Decoration Component
+const CornerDecorations = ({ className = "" }: { className?: string }) => (
+  <div className={`absolute inset-0 pointer-events-none ${className}`}>
+    {/* Top Left */}
+    <div className="absolute top-0 left-0 flex items-center space-x-2 ">
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+      <div className="w-8 h-px bg-muted-foreground/20"></div>
+    </div>
+    <div className="absolute top-0 left-0 flex flex-col items-center space-y-2 ">
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+      <div className="w-px h-8 bg-muted-foreground/20"></div>
+    </div>
+
+    {/* Top Right */}
+    <div className="absolute top-0 right-0 flex items-center space-x-2 ">
+      <div className="w-8 h-px bg-muted-foreground/20"></div>
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+    </div>
+    <div className="absolute top-0 right-0 flex flex-col items-center space-y-2">
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+      <div className="w-px h-8 bg-muted-foreground/20"></div>
+    </div>
+
+    {/* Bottom Left */}
+    <div className="absolute bottom-0 left-0 flex items-center space-x-2 ">
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+      <div className="w-8 h-px bg-muted-foreground/20"></div>
+    </div>
+    <div className="absolute bottom-0 left-0 flex flex-col items-center space-y-2">
+      <div className="w-px h-8 bg-muted-foreground/20"></div>
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+    </div>
+
+    {/* Bottom Right */}
+    <div className="absolute bottom-0 right-0 flex items-center space-x-2 ">
+      <div className="w-8 h-px bg-muted-foreground/20"></div>
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+    </div>
+    <div className="absolute bottom-0 right-0 flex flex-col items-center space-y-2">
+      <div className="w-px h-8 bg-muted-foreground/20"></div>
+      <Plus className="h-3 w-3 text-muted-foreground/40" />
+    </div>
+  </div>
+);
 
 export default function Page() {
   const [activeSection, setActiveSection] = useState("home");
@@ -58,13 +97,9 @@ export default function Page() {
         "about",
         "skills",
         "projects",
-        "services",
         "experience",
-        "education",
         "contact",
       ];
-
-      // Show/hide scroll to top button
       if (window.scrollY > 500) {
         setShowScrollTop(true);
       } else {
@@ -72,7 +107,6 @@ export default function Page() {
       }
 
       const scrollPosition = window.scrollY;
-
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -113,128 +147,76 @@ export default function Page() {
     { id: "about", label: "About" },
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
-    { id: "services", label: "Services" },
     { id: "experience", label: "Experience" },
-    { id: "education", label: "Education" },
     { id: "contact", label: "Contact" },
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative">
-      {/* Desktop Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border shadow-sm">
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Navigation */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+        <nav className="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
           <Link
             href="/"
-            className="text-2xl font-bold bg-gradient-to-r from-teal-500 to-teal-700 dark:from-teal-400 dark:to-teal-600 bg-clip-text text-transparent tracking-wider"
+            className="text-xl font-bold text-foreground hover:text-primary transition-colors"
           >
-            OM.
+            OM
           </Link>
 
-          <div className="flex justify-center items-center gap-3">
-            <ModeToggle />
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`text-sm font-medium transition-colors ${
+                  activeSection === item.id
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
 
-            {/* Mobile Menu Trigger */}
+          <div className="flex items-center space-x-4">
+            <ModeToggle />
+            {/* Mobile Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="icon"
-                  onClick={toggleMenu}
+                  className="md:hidden"
                   aria-label="Toggle menu"
                 >
-                  {mobileMenuOpen ? (
-                    <X className="h-5 w-5" />
-                  ) : (
-                    <PanelLeftClose className="h-5 w-5" />
-                  )}
+                  <AlignRight className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[350px] p-0">
+              <SheetContent side="right" className="w-[300px] p-0">
                 <div className="flex flex-col h-full">
-                  <div className="p-4 border-b">
-                    <h2 className="text-xl font-bold bg-gradient-to-r from-teal-500 to-teal-700 dark:from-teal-400 dark:to-teal-600 bg-clip-text text-transparent">
-                      OM PATEL
-                    </h2>
+                  <div className="p-6 border-b">
+                    <h2 className="text-lg font-bold">Om Patel</h2>
                     <p className="text-sm text-muted-foreground">
-                      Full Stack Developer
+                      Software Developer
                     </p>
                   </div>
-                  <nav className="flex flex-col space-y-1 p-4 flex-1">
+                  <nav className="flex flex-col p-6 space-y-2">
                     {navItems.map((item) => (
-                      <Button
+                      <button
                         key={item.id}
-                        variant={
-                          activeSection === item.id ? "default" : "ghost"
-                        }
-                        className={`justify-start text-base ${
-                          activeSection === item.id
-                            ? "bg-teal-500 text-white hover:bg-teal-600"
-                            : "hover:text-teal-500"
-                        }`}
                         onClick={() => scrollToSection(item.id)}
+                        className={`text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                          activeSection === item.id
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                        }`}
                       >
                         {item.label}
-                      </Button>
+                      </button>
                     ))}
                   </nav>
-                  <div className="p-4 border-t mt-auto">
-                    <div className="flex justify-center space-x-4">
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Link
-                              href="https://github.com/Omi-Patel"
-                              target="_blank"
-                              className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                              <Github className="h-5 w-5" />
-                              <span className="sr-only">GitHub</span>
-                            </Link>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>GitHub</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Link
-                              href="https://linkedin.com/in/ompatel7113"
-                              target="_blank"
-                              className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                              <Linkedin className="h-5 w-5" />
-                              <span className="sr-only">LinkedIn</span>
-                            </Link>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>LinkedIn</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Link
-                              href="https://x.com/om_patel07"
-                              target="_blank"
-                              className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                              <Twitter className="h-5 w-5" />
-                              <span className="sr-only">Twitter</span>
-                            </Link>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Twitter</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                  </div>
                 </div>
               </SheetContent>
             </Sheet>
@@ -242,721 +224,697 @@ export default function Page() {
         </nav>
       </header>
 
-      <main className="">
-        {/* Hero */}
+      <main className="pt-16">
+        {/* Hero Section */}
         <section
           id="home"
-          className="min-h-screen flex items-center justify-center bg-background text-foreground"
+          className="min-h-screen py-20 relative overflow-hidden"
         >
-          <div className="text-center px-4 w-full max-w-7xl font-sans">
-            <motion.p
-              className="text-lg sm:text-xl font-medium mb-4 text-teal-500"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-            >
-              Hello 👋, I am
-            </motion.p>
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-teal-300 to-teal-800 dark:from-teal-300 dark:to-teal-800 bg-clip-text text-transparent"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span style={{ fontFamily: "Montserrat" }}>Om Patel</span>
-            </motion.h1>
-            <motion.div
-              className="text-lg sm:text-lg md:text-xl lg:text-2xl mb-4 flex items-center justify-center"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Badge
-                variant="secondary"
-                className="px-4 py-1 text-base sm:text-lg border-teal-500 text-teal-500 rounded-full"
-              >
-                Software Developer
-              </Badge>
-            </motion.div>
-            <motion.p
-              className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              ✨ As someone who is always passionate for learning more about
-              tech and life. Ever since been a self taught software developer
-              also unstopped learner. I have evolved into a Full Stack
-              Javascript career path, and loves working with cutting edge tools
-              and technologies🚀.
-            </motion.p>
-            <motion.div
-              className="flex flex-wrap justify-center items-center space-x-2 sm:space-x-4 mb-8"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              <Link href={"https://github.com/Omi-Patel"} target="_blank">
-                <Button
-                  variant="outline"
-                  className="flex items-center justify-center px-2 sm:px-4 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white"
-                >
-                  <Github className="mr-2 h-4 w-4" />
-                  GitHub
-                </Button>
-              </Link>
-              <Link
-                href={"https://linkedin.com/in/ompatel7113"}
-                target="_blank"
-              >
-                <Button
-                  variant="outline"
-                  className="flex items-center justify-center px-2 sm:px-4 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white"
-                >
-                  <Linkedin className="mr-2 h-4 w-4" />
-                  LinkedIn
-                </Button>
-              </Link>
-              <Link href={"https://x.com/om_patel07"} target="_blank">
-                <Button
-                  variant="outline"
-                  className="flex items-center justify-center px-2 sm:px-4 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white"
-                >
-                  <Twitter className="mr-2 h-4 w-4" />
-                  Twitter
-                </Button>
-              </Link>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <Button
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-teal-500 hover:bg-teal-600 text-white"
-                onClick={() => scrollToSection("contact")}
-              >
-                <Send className="mr-2 h-4 w-4" />
-                Get in touch
-              </Button>
-            </motion.div>
+          <CornerDecorations />
+          {/* Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-88 h-88 bg-orange-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/4 right-1/4 w-56 h-56 bg-green-500/6 rounded-full blur-3xl"></div>
           </div>
-        </section>
-        <Separator className="bg-border" />
 
-        {/* About */}
-        <section id="about" className="py-16 bg-background text-foreground">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold relative inline-block">
-                About Me
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-teal-500"></span>
-              </h2>
-            </div>
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-full md:w-1/3 flex justify-center">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-teal-500/30 rounded-full blur-md"></div>
-                  <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl z-10">
-                    <Image
-                      src="https://res.cloudinary.com/omicloud07/image/upload/v1716871034/my_photo_ddfczq.jpg"
-                      alt="Om Patel"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                  </div>
-                  <div className="absolute -bottom-2 left-0 right-0 text-center z-20">
-                    <Badge className="bg-teal-500 hover:bg-teal-600 text-white border-none px-4 py-1 text-sm">
-                      Software Developer
-                    </Badge>
-                  </div>
-                </div>
-              </div>
-              <div className="w-full md:w-2/3">
-                <div className="relative">
-                  <div className="absolute top-0 right-0 w-20 h-20 border-t-4 border-r-4 border-blue-500 -mt-4 -mr-4"></div>
-                  <div className="absolute bottom-0 left-0 w-20 h-20 border-b-4 border-l-4 border-teal-500 -mb-4 -ml-4"></div>
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--muted-foreground)/0.05)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--muted-foreground)/0.05)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
-                  <Card className="bg-card text-card-foreground rounded-xl shadow-lg p-5 sm:p-8 border border-border relative z-10">
-                    <div className="absolute top-0 right-0 -mt-4 -mr-4 bg-blue-500 text-white px-4 py-1 text-sm rounded-bl-xl rounded-tr-xl font-medium">
-                      About Me
-                    </div>
-
-                    <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-blue-500">
-                      Hello, I&apos;m Om Patel!
-                    </h3>
-
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <p className="text-base sm:text-lg">
-                          I&apos;m a passionate full stack developer with a
-                          knack for turning complex problems into elegant,
-                          efficient solutions. With experience in the
-                          ever-evolving world of web development, I&apos;ve
-                          honed my skills in both front-end and back-end
-                          technologies.
-                        </p>
-                      </div>
-
-                      <div className="flex items-start">
-                        <p className="text-base sm:text-lg">
-                          My journey in tech has been driven by curiosity and a
-                          constant desire to learn. From crafting pixel-perfect
-                          user interfaces to architecting robust server-side
-                          applications, I find joy in every aspect of the
-                          development process.
-                        </p>
-                      </div>
-
-                      <div className="flex items-start">
-                        <p className="text-base sm:text-lg">
-                          I&apos;m a Full stack developer with a passion for
-                          building top-notch websites. I&apos;ve a solid
-                          understanding of both Frontend and Backend development
-                          and I can&apos;t wait to utilize my skills in the
-                          workplace. I&apos;m a quick learner and am certain
-                          that I can be a valuable asset to any web development
-                          team.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      <Link
-                        href={"https://linktr.ee/Om_Patel_07"}
-                        target="_blank"
-                      >
-                        <Button className="flex items-center px-4 py-2 sm:px-6 sm:py-3 bg-blue-500 hover:bg-blue-600 text-white">
-                          <UserPlus className="mr-2 h-4 w-4" />
-                          Follow Me
-                        </Button>
-                      </Link>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <Separator className="bg-border" />
-
-        {/* Skills */}
-        <section id="skills" className="py-16 bg-background text-foreground">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold relative inline-block">
-                Skills
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-teal-500"></span>
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                {
-                  category: "Frontend Technology",
-                  skills: [
-                    "HTML5",
-                    "CSS3",
-                    "JavaScript",
-                    "React.js",
-                    "Next.js",
-                    "TypeScript",
-                    "Tailwind CSS",
-                    "Tanstack Query",
-                  ],
-                  color: "blue",
-                  icon: <Monitor className="h-5 w-5" />,
-                },
-                {
-                  category: "Backend Technology",
-                  skills: [
-                    "NodeJS",
-                    "ExpressJS",
-                    "REST API",
-                    "JWT",
-                    "Bcrypt",
-                    "Spring Boot",
-                  ],
-                  color: "green",
-                  icon: <Server className="h-5 w-5" />,
-                },
-                {
-                  category: "Database",
-                  skills: ["MongoDB", "Firebase", "MySQL", "PostgreSQL"],
-                  color: "yellow",
-                  icon: <Terminal className="h-5 w-5" />,
-                },
-                {
-                  category: "Other Tools / Technology",
-                  skills: [
-                    "VS Code",
-                    "Postman ",
-                    "Git & GitHub",
-                    "Vercel",
-                    "Netlify",
-                    "Render",
-                  ],
-                  color: "purple",
-                  icon: <Code className="h-5 w-5" />,
-                },
-              ].map((category, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="overflow-hidden border border-border h-full">
-                    <CardHeader
-                      className={`pb-2 ${
-                        category.color === "blue"
-                          ? "bg-blue-50 dark:bg-blue-950/30 border-b border-blue-200 dark:border-blue-800/30"
-                          : category.color === "green"
-                          ? "bg-green-50 dark:bg-green-950/30 border-b border-green-200 dark:border-green-800/30"
-                          : category.color === "yellow"
-                          ? "bg-yellow-50 dark:bg-yellow-950/30 border-b border-yellow-200 dark:border-yellow-800/30"
-                          : "bg-purple-50 dark:bg-purple-950/30 border-b border-purple-200 dark:border-purple-800/30"
-                      }`}
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="flex flex-col md:flex-row gap-12 items-start">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="flex-1"
+              >
+                <p className="text-primary font-medium mb-4">Hello 👋, I'm</p>
+                <h1 className="text-5xl md:text-7xl font-bold mb-4">
+                  Om Patel
+                </h1>
+                <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+                  Software Developer
+                </p>
+                <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed mb-8">
+                  Passionate about creating elegant solutions and building
+                  impactful digital experiences. I specialize in modern web
+                  technologies and love turning complex problems into simple,
+                  beautiful interfaces.
+                </p>
+                <div className="flex flex-wrap gap-4 mb-8">
+                  <Button
+                    size="lg"
+                    onClick={() => scrollToSection("contact")}
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    <Send className="mr-2 h-4 w-4" />
+                    Get In Touch
+                  </Button>
+                  <Button variant="outline" size="lg" asChild>
+                    <Link
+                      href="https://drive.google.com/file/d/1JAWHI6HEzS9MqvmiKHGD8f-I4Z9PHsyL/view?usp=sharing"
+                      target="_blank"
                     >
-                      <CardTitle
-                        className={`text-lg sm:text-xl flex items-center gap-2 ${
-                          category.color === "blue"
-                            ? "text-blue-600 dark:text-blue-400"
-                            : category.color === "green"
-                            ? "text-green-600 dark:text-green-400"
-                            : category.color === "yellow"
-                            ? "text-yellow-600 dark:text-yellow-400"
-                            : "text-purple-600 dark:text-purple-400"
-                        }`}
-                      >
-                        <div
-                          className={`w-8 h-8 rounded-md flex items-center justify-center border ${
-                            category.color === "blue"
-                              ? "bg-blue-100 dark:bg-blue-900/50 border-blue-200 dark:border-blue-700"
-                              : category.color === "green"
-                              ? "bg-green-100 dark:bg-green-900/50 border-green-200 dark:border-green-700"
-                              : category.color === "yellow"
-                              ? "bg-yellow-100 dark:bg-yellow-900/50 border-yellow-200 dark:border-yellow-700"
-                              : "bg-purple-100 dark:bg-purple-900/50 border-purple-200 dark:border-purple-700"
-                          }`}
+                      <File className="mr-2 h-4 w-4" />
+                      Resume
+                    </Link>
+                  </Button>
+                </div>
+                <div className="flex space-x-6">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href="https://github.com/Omi-Patel"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-foreground transition-colors"
                         >
-                          {category.icon}
-                        </div>
-                        {category.category}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-4">
-                      <div className="grid grid-cols-2 gap-3">
-                        {category.skills.map((skill, skillIndex) => (
-                          <div
-                            key={skillIndex}
-                            className={`group flex items-center p-2 rounded-md  ${
-                              category.color === "blue"
-                                ? "border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900/20 hover:shadow-blue-500/10"
-                                : category.color === "green"
-                                ? "border-l-4 border-green-500 bg-green-50 dark:bg-green-900/20 hover:shadow-green-500/10"
-                                : category.color === "yellow"
-                                ? "border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20 hover:shadow-yellow-500/10"
-                                : "border-l-4 border-purple-500 bg-purple-50 dark:bg-purple-900/20 hover:shadow-purple-500/10"
-                            }`}
-                          >
-                            <div
-                              className={`w-6 h-6 rounded-full flex items-center justify-center mr-2 transition-colors ${
-                                category.color === "blue"
-                                  ? "bg-blue-100 dark:bg-blue-800 group-hover:bg-blue-200 dark:group-hover:bg-blue-700"
-                                  : category.color === "green"
-                                  ? "bg-green-100 dark:bg-green-800 group-hover:bg-green-200 dark:group-hover:bg-green-700"
-                                  : category.color === "yellow"
-                                  ? "bg-yellow-100 dark:bg-yellow-800 group-hover:bg-yellow-200 dark:group-hover:bg-yellow-700"
-                                  : "bg-purple-100 dark:bg-purple-800 group-hover:bg-purple-200 dark:group-hover:bg-purple-700"
-                              }`}
-                            >
-                              <ChevronRight
-                                className={`h-3 w-3 text-primary`}
-                              />
-                            </div>
-                            <span
-                              className={`font-medium text-sm text-primary`}
-                            >
-                              {skill}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                          <Github className="h-6 w-6" />
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent>GitHub</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href="https://linkedin.com/in/ompatel7113"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          <Linkedin className="h-6 w-6" />
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent>LinkedIn</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href="https://x.com/om_patel07"
+                          target="_blank"
+                          className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          <Twitter className="h-6 w-6" />
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent>Twitter</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
-        <Separator className="bg-border" />
 
-        {/* Projects */}
-        <section id="projects" className="py-16 bg-background text-foreground">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold relative inline-block">
-                Projects
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-teal-500"></span>
-              </h2>
+        {/* About Section */}
+        <section
+          id="about"
+          className="py-20 bg-muted/30 relative overflow-hidden"
+        >
+          <CornerDecorations />
+          {/* About Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-10 left-1/4 w-64 h-64 bg-indigo-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-cyan-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/3 right-10 w-48 h-48 bg-violet-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/3 left-10 w-56 h-56 bg-sky-500/6 rounded-full blur-3xl"></div>
+          </div>
+
+          {/* About Dots Pattern */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-20 left-20 w-2 h-2 bg-muted-foreground/40 rounded-full"></div>
+            <div className="absolute top-32 left-40 w-1 h-1 bg-muted-foreground/30 rounded-full"></div>
+            <div className="absolute top-48 left-60 w-3 h-3 bg-muted-foreground/50 rounded-full"></div>
+            <div className="absolute top-64 left-80 w-1.5 h-1.5 bg-muted-foreground/35 rounded-full"></div>
+            <div className="absolute top-80 left-32 w-2.5 h-2.5 bg-muted-foreground/45 rounded-full"></div>
+            <div className="absolute top-96 left-72 w-1 h-1 bg-muted-foreground/30 rounded-full"></div>
+
+            <div className="absolute top-24 right-24 w-2 h-2 bg-muted-foreground/40 rounded-full"></div>
+            <div className="absolute top-40 right-48 w-1.5 h-1.5 bg-muted-foreground/35 rounded-full"></div>
+            <div className="absolute top-56 right-32 w-1 h-1 bg-muted-foreground/30 rounded-full"></div>
+            <div className="absolute top-72 right-64 w-3 h-3 bg-muted-foreground/50 rounded-full"></div>
+            <div className="absolute top-88 right-40 w-2 h-2 bg-muted-foreground/40 rounded-full"></div>
+
+            <div className="absolute bottom-20 left-28 w-2.5 h-2.5 bg-muted-foreground/45 rounded-full"></div>
+            <div className="absolute bottom-36 left-56 w-1 h-1 bg-muted-foreground/30 rounded-full"></div>
+            <div className="absolute bottom-52 left-44 w-2 h-2 bg-muted-foreground/40 rounded-full"></div>
+            <div className="absolute bottom-68 left-68 w-1.5 h-1.5 bg-muted-foreground/35 rounded-full"></div>
+
+            <div className="absolute bottom-24 right-32 w-3 h-3 bg-muted-foreground/50 rounded-full"></div>
+            <div className="absolute bottom-40 right-56 w-1 h-1 bg-muted-foreground/30 rounded-full"></div>
+            <div className="absolute bottom-56 right-28 w-2 h-2 bg-muted-foreground/40 rounded-full"></div>
+            <div className="absolute bottom-72 right-52 w-1.5 h-1.5 bg-muted-foreground/35 rounded-full"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-left mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+              <p className="text-muted-foreground max-w-2xl">
+                A passionate software developer with a love for clean code and
+                innovative solutions
+              </p>
+            </motion.div>
+
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="flex-shrink-0"
+              >
+                <div className="relative w-72 h-80">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl"></div>
+                  <Image
+                    src="https://res.cloudinary.com/omicloud07/image/upload/v1716871034/my_photo_ddfczq.jpg"
+                    alt="Om Patel"
+                    fill
+                    className="object-cover rounded-2xl"
+                  />
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="flex-1 space-y-6"
+              >
+                <div className="max-w-2xl">
+                  <h3 className="text-2xl font-semibold mb-4">Who I Am</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    I'm a full-stack developer with a passion for creating
+                    meaningful digital experiences. My journey in tech has been
+                    driven by curiosity and a constant desire to learn and grow.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    I specialize in modern web technologies including React,
+                    Next.js, Node.js, and TypeScript. I believe in writing
+                    clean, maintainable code and creating user-centered
+                    solutions that make a difference.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    When I'm not coding, you'll find me exploring new
+                    technologies, contributing to open-source projects, or
+                    sharing knowledge with the developer community.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <Button asChild>
+                    <Link href="https://linktr.ee/Om_Patel_07" target="_blank">
+                      <UserPlus className="mr-2 h-4 w-4" />
+                      Connect With Me
+                    </Link>
+                  </Button>
+                </div>
+              </motion.div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section id="skills" className="py-20 relative overflow-hidden">
+          <CornerDecorations />
+          {/* Skills Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 left-20 w-72 h-72 bg-emerald-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 right-20 w-64 h-64 bg-lime-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-green-500/4 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/4 right-1/4 w-56 h-56 bg-teal-500/8 rounded-full blur-3xl"></div>
+          </div>
+
+          {/* Skills Hexagon Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-10 left-10 w-32 h-32 border border-current transform rotate-45"></div>
+            <div className="absolute top-20 right-20 w-24 h-24 border border-current transform rotate-45"></div>
+            <div className="absolute bottom-20 left-20 w-28 h-28 border border-current transform rotate-45"></div>
+            <div className="absolute bottom-10 right-10 w-20 h-20 border border-current transform rotate-45"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-left mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Skills</h2>
+              <p className="text-muted-foreground max-w-2xl">
+                Technologies and tools I use to bring ideas to life
+              </p>
+            </motion.div>
+
+            {/* Main Skills Grid */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {/* Frontend */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="p-6 rounded-2xl border border-border/50 bg-card/50 hover:bg-card transition-all duration-300 hover:shadow-lg">
+                  <div className="flex items-center mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                      <Monitor className="h-5 w-5 text-blue-500" />
+                    </div>
+                    <h3 className="text-xl font-semibold">Frontend</h3>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      "React",
+                      "Next.js",
+                      "TypeScript",
+                      "JavaScript",
+                      "HTML/CSS",
+                      "Tailwind",
+                    ].map((skill, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Backend */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="p-6 rounded-2xl border border-border/50 bg-card/50 hover:bg-card transition-all duration-300 hover:shadow-lg">
+                  <div className="flex items-center mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                      <Server className="h-5 w-5 text-green-500" />
+                    </div>
+                    <h3 className="text-xl font-semibold">Backend</h3>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      "Node.js",
+                      "Express",
+                      "Spring Boot",
+                      "Java",
+                      "REST APIs",
+                      "JWT",
+                    ].map((skill, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Database */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="p-6 rounded-2xl border border-border/50 bg-card/50 hover:bg-card transition-all duration-300 hover:shadow-lg">
+                  <div className="flex items-center mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                      <Terminal className="h-5 w-5 text-purple-500" />
+                    </div>
+                    <h3 className="text-xl font-semibold">Database</h3>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {["MongoDB", "PostgreSQL", "MySQL", "Firebase"].map(
+                      (skill, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                          <span>{skill}</span>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Tools */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="p-6 rounded-2xl border border-border/50 bg-card/50 hover:bg-card transition-all duration-300 hover:shadow-lg">
+                  <div className="flex items-center mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                      <Code className="h-5 w-5 text-orange-500" />
+                    </div>
+                    <h3 className="text-xl font-semibold">Tools</h3>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      "Git",
+                      "VS Code",
+                      "Docker",
+                      "Vercel",
+                      "Postman",
+                      "Render",
+                    ].map((skill, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section
+          id="projects"
+          className="py-20 bg-muted/30 relative overflow-hidden"
+        >
+          <CornerDecorations />
+          {/* Projects Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 left-1/3 w-80 h-80 bg-amber-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-yellow-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/3 left-0 w-64 h-64 bg-orange-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/3 right-0 w-56 h-56 bg-red-500/8 rounded-full blur-3xl"></div>
+          </div>
+
+          {/* Projects Dots Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-20 left-20 w-2 h-2 bg-current rounded-full"></div>
+            <div className="absolute top-40 left-40 w-1 h-1 bg-current rounded-full"></div>
+            <div className="absolute top-60 left-60 w-3 h-3 bg-current rounded-full"></div>
+            <div className="absolute top-80 left-80 w-1 h-1 bg-current rounded-full"></div>
+            <div className="absolute bottom-20 right-20 w-2 h-2 bg-current rounded-full"></div>
+            <div className="absolute bottom-40 right-40 w-1 h-1 bg-current rounded-full"></div>
+            <div className="absolute bottom-60 right-60 w-3 h-3 bg-current rounded-full"></div>
+            <div className="absolute bottom-80 right-80 w-1 h-1 bg-current rounded-full"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-left mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Featured Projects
+              </h2>
+              <p className="text-muted-foreground max-w-2xl">
+                A selection of my recent work and personal projects
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
                   title: "retroUI - React Component Library",
-                  desc: "RetroUI is a carefully crafted UI component library built with ReactJS and Tailwind CSS, designed to help developers create unique and nostalgic retro-themed interfaces.",
-                  src: "https://retro-ui-component.vercel.app/",
-                  githubUrl: "https://github.com/Omi-Patel/retroUI_Component",
+                  description:
+                    "A carefully crafted UI component library built with ReactJS and Tailwind CSS, designed for retro-themed interfaces.",
                   tags: ["React", "Tailwind CSS", "UI Library"],
+                  liveUrl: "https://retro-ui-component.vercel.app/",
+                  githubUrl: "https://github.com/Omi-Patel/retroUI_Component",
+                  featured: true,
                 },
                 {
                   title: "getYourTiffin()",
-                  desc: "Customers can easily select their desired menu items, create orders, and make payments using Razorpay integration. With an intuitive admin interface for order management.",
-                  src: "https://book-your-tiffin-online.vercel.app/",
-                  githubUrl: "https://github.com/Omi-Patel/BookYourTiffin",
+                  description:
+                    "A food ordering platform with Razorpay integration and admin interface for order management.",
                   tags: ["Next.js", "Razorpay", "MongoDB"],
+                  liveUrl: "https://book-your-tiffin-online.vercel.app/",
+                  githubUrl: "https://github.com/Omi-Patel/BookYourTiffin",
+                  featured: true,
                 },
                 {
-                  title: "motivate.js - An NPM Package",
-                  desc: "MotivateJS is a simple npm package designed to help beginners to stay motivated while coding. It provides a function that prints motivational quotes when an error occurs.",
-                  src: "https://www.npmjs.com/package/motivatejs",
-                  githubUrl: "https://github.com/Omi-Patel/motivatejs",
+                  title: "motivate.js - NPM Package",
+                  description:
+                    "An npm package that provides motivational quotes when errors occur during development.",
                   tags: ["NPM", "JavaScript", "Node.js"],
+                  liveUrl: "https://www.npmjs.com/package/motivatejs",
+                  githubUrl: "https://github.com/Omi-Patel/motivatejs",
+                  featured: false,
                 },
                 {
                   title: "Code_Mine",
-                  desc: "The Platform where you can Read Blogs related to Technology and Coding and share your thought into the comment section.",
-                  src: "https://code-mine.vercel.app/",
-                  githubUrl: "https://github.com/Omi-Patel/CodeMine_",
+                  description:
+                    "A technology blog platform where users can read and share thoughts in the comment section.",
                   tags: ["Next.js", "Blog", "Comments"],
+                  liveUrl: "https://code-mine.vercel.app/",
+                  githubUrl: "https://github.com/Omi-Patel/CodeMine_",
+                  featured: false,
                 },
                 {
                   title: "resumifyX",
-                  desc: "Developed a dynamic and user-friendly web application that allows users to create professional resumes with ease.",
-                  src: "https://resumifyx.vercel.app/",
-                  githubUrl: "https://github.com/Omi-Patel/Resume_Builder",
+                  description:
+                    "A dynamic web application for creating professional resumes with PDF export functionality.",
                   tags: ["React", "Resume Builder", "PDF Export"],
+                  liveUrl: "https://resumifyx.vercel.app/",
+                  githubUrl: "https://github.com/Omi-Patel/Resume_Builder",
+                  featured: false,
                 },
                 {
                   title: "Saarthi_EngStudy",
-                  desc: "A study material sharing platform with secure uploads, cloud storage, and a smooth user experience, powered by Next.js, MongoDB, and Vercel.",
-                  src: "https://saarthi-engstudy.vercel.app/",
+                  description:
+                    "A study material sharing platform with secure uploads, cloud storage, and a smooth user experience, powered by Next.js, MongoDB, and Vercel.",
+                  tags: ["Next.js", "MongoDB", "Cloud Storage"],
+                  liveUrl: "https://saarthi-engstudy.vercel.app/",
                   githubUrl:
                     "https://github.com/Omi-Patel/Saarthi_EngStudy_Frontend",
-                  tags: ["Next.js", "MongoDB", "Cloud Storage"],
+                  featured: false,
                 },
                 {
-                  title: "Veltrix | Project Management System",
-                  desc: "Simplify your team's workflow, collaborate in real-time, and meet every deadline — all in one platform.",
-                  src: "https://project-management-client-eosin.vercel.app/",
+                  title: "Veltrix | Project Management",
+                  description:
+                    "A comprehensive project management system with real-time collaboration and deadline tracking.",
+                  tags: ["React.js", "PostgreSQL", "Spring Boot"],
+                  liveUrl:
+                    "https://project-management-client-eosin.vercel.app/",
                   githubUrl:
                     "https://github.com/Omi-Patel/Project_Management_Client",
-                  tags: ["React.js", "PostgreSQL", "Spring Boot", "Kotlin"],
+                  featured: true,
                 },
               ].map((project, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="h-full flex flex-col border rounded-xl overflow-hidden p-2">
-                    <CardHeader className="pb-2 pt-3 px-4">
-                      <CardTitle className="text-xl tracking-wide group-hover:text-teal-500 transition-colors">
-                        <span style={{ fontFamily: "Montserrat" }}>
+                  <Card className="h-full flex flex-col border border-border/60 bg-card/50 hover:bg-card transition-all duration-300 group overflow-hidden">
+                    <CardHeader className="pb-4 pt-6 px-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors line-clamp-2">
                           {project.title}
-                        </span>
-                      </CardTitle>
+                        </CardTitle>
+                        {project.featured && (
+                          <div className="flex items-center space-x-1 text-yellow-500">
+                            <Star className="h-4 w-4 fill-current" />
+                          </div>
+                        )}
+                      </div>
+                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                        {project.description}
+                      </p>
                     </CardHeader>
-
-                    <CardContent className="flex-grow px-4 pb-2">
-                      <p className="text-muted-foreground">{project.desc}</p>
-                      <div className="flex flex-wrap gap-2 mt-3">
+                    <CardContent className="flex-grow px-6 pb-4">
+                      <div className="flex flex-wrap gap-2 mb-4">
                         {project.tags.map((tag, tagIndex) => (
                           <Badge
                             key={tagIndex}
                             variant="outline"
-                            className="bg-teal-500/10 text-teal-500 border-teal-500/20"
+                            className="text-xs font-medium border-border/60 bg-background/50 hover:bg-primary/10 hover:border-primary/30 transition-colors"
                           >
                             {tag}
                           </Badge>
                         ))}
                       </div>
                     </CardContent>
-
-                    <CardFooter className="pt-3 px-4 pb-3 flex justify-between border-t">
-                      <Link href={project.src} target="_blank">
+                    <div className="px-6 pb-6 pt-0">
+                      <div className="flex items-center justify-between pt-4 border-t border-border/40">
                         <Button
                           variant="ghost"
-                          className="flex items-center text-teal-500 hover:text-teal-600 hover:bg-teal-500/10"
+                          size="sm"
+                          className="text-primary hover:text-primary hover:bg-primary/10 transition-colors"
+                          asChild
                         >
-                          <ExternalLink className="mr-2 h-4 w-4" />
-                          View Project
+                          <Link href={project.liveUrl} target="_blank">
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            Live Demo
+                          </Link>
                         </Button>
-                      </Link>
-                      <Link href={project.githubUrl} target="_blank">
                         <Button
                           variant="ghost"
-                          className="flex items-center text-teal-500 hover:text-teal-600 hover:bg-teal-500/10"
+                          size="sm"
+                          className="text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                          asChild
                         >
-                          <Github className="mr-2 h-4 w-4" />
-                          Code
+                          <Link href={project.githubUrl} target="_blank">
+                            <Github className="mr-2 h-4 w-4" />
+                            Source
+                          </Link>
                         </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-        <Separator className="bg-border" />
-
-        {/* Service */}
-        <section id="services" className="py-16 text-foreground">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold relative inline-block">
-                Services I Offer
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-teal-500"></span>
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Frontend Development",
-                  icon: <Monitor className="h-6 w-6 text-teal-500" />,
-                  description:
-                    "As a Frontend Developer, I create engaging and user-friendly interfaces using HTML, CSS, and JavaScript. My expertise includes building responsive designs and optimizing web performance, to deliver seamless user experiences.",
-                },
-                {
-                  title: "Backend Development",
-                  icon: <Server className="h-6 w-6 text-teal-500" />,
-                  description:
-                    "In Backend Development, I focus on creating robust server-side applications using technologies such as Node.js, Express, and Databases like MongoDB. I design and implement APIs, manage server configurations, and ensure the security and efficiency of web applications.",
-                },
-                {
-                  title: "Java Programming",
-                  icon: <Terminal className="h-6 w-6 text-teal-500" />,
-                  description:
-                    "With a strong foundation in Java programming, I wrote effective code for the solution. My experience includes Object-Oriented Design, Data Structures, and Algorithms, enabling me to build scalable and maintainable software solutions.",
-                },
-              ].map((service, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="h-full border border-border hover:shadow-lg hover:shadow-teal-500/5 transition-all duration-300 group">
-                    <CardHeader>
-                      <div className="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center mb-4 group-hover:bg-teal-500/20 transition-colors">
-                        {service.icon}
                       </div>
-                      <CardTitle className="text-xl group-hover:text-teal-500 transition-colors">
-                        {service.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">
-                        {service.description}
-                      </p>
-                    </CardContent>
+                    </div>
                   </Card>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
-        <Separator className="bg-border" />
 
-        {/* Experience */}
-        <section
-          id="experience"
-          className="py-16 bg-background text-foreground"
-        >
-          <div className="container mx-auto px-4">
-            <div className="flex items-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold relative inline-block">
+        {/* Experience Section */}
+        <section id="experience" className="py-20 relative overflow-hidden">
+          <CornerDecorations />
+          {/* Experience Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-10 right-10 w-96 h-96 bg-slate-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 left-10 w-80 h-80 bg-gray-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-zinc-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-neutral-500/8 rounded-full blur-3xl"></div>
+          </div>
+
+          {/* Experience Lines Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-20 left-0 w-32 h-px bg-current"></div>
+            <div className="absolute top-40 left-0 w-24 h-px bg-current"></div>
+            <div className="absolute top-60 left-0 w-28 h-px bg-current"></div>
+            <div className="absolute bottom-20 right-0 w-32 h-px bg-current"></div>
+            <div className="absolute bottom-40 right-0 w-24 h-px bg-current"></div>
+            <div className="absolute bottom-60 right-0 w-28 h-px bg-current"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-left mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Experience
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-teal-500"></span>
               </h2>
-            </div>
+              <p className="text-muted-foreground max-w-2xl">
+                My professional journey in software development
+              </p>
+            </motion.div>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="relative border-l-2 border-blue-500 pl-8 ml-4 space-y-10 before:absolute before:top-0 before:left-0 before:w-2 before:h-full">
-                {[
-                  {
-                    title: "Software Developer Engineer",
-                    company: "Liquify Solutions",
-                    period: "January'25 - Present",
-                    responsibilities: [
-                      "Development of enterprise-level web applications using Spring Boot",
-                      "Handling Frontend and Backend part of the application",
-                      "Providing Solutions to real-world problem",
-                    ],
-                  },
-                  {
-                    title: "Junior Full Stack Developer",
-                    company: "The Development Studio",
-                    period: "July'24 - October'24",
-                    responsibilities: [
-                      "Development of enterprise-level web applications",
-                      "Handling Frontend part of the application",
-                      "Integrating API to the frontend for actual data.",
-                    ],
-                  },
-                  {
-                    title: "Full Stack Developer",
-                    company: "Zidio Development",
-                    period: "June'24 - July'24",
-                    responsibilities: [
-                      "Developed and maintained resume builder websites",
-                      "Integrated third-party APIs and services",
-                      "Optimized application performance and database queries",
-                    ],
-                  },
-                ].map((job, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="relative group"
-                  >
-                    <div className="absolute -left-10 w-8 h-8 rounded-full border-4 border-background bg-primary/10 flex items-center justify-center transition-colors group-hover:bg-primary">
-                      <Briefcase className="h-4 w-4 text-primary transition-colors group-hover:text-primary-foreground" />
-                    </div>
-
-                    <div className="rounded-lg p-6 border bg-card hover:bg-accent transition-colors duration-300">
-                      <div className="flex flex-wrap justify-between items-start gap-2 mb-3">
-                        <h3 className="text-lg font-semibold text-primary">
-                          {job.title}
-                        </h3>
-                        <Badge
-                          variant="outline"
-                          className="text-xs border-primary text-primary"
-                        >
-                          {job.period}
-                        </Badge>
-                      </div>
-
-                      <p className="text-muted-foreground text-sm mb-4 font-semibold tracking-wider">
-                        At: {job.company}
-                      </p>
-
-                      <ul className="space-y-2">
-                        {job.responsibilities.map((resp, respIndex) => (
-                          <motion.li
-                            key={respIndex}
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{
-                              duration: 0.3,
-                              delay: 0.1 + respIndex * 0.1,
-                            }}
-                            viewport={{ once: true }}
-                            className="flex items-start text-sm group/item"
-                          >
-                            <ChevronRight className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-primary/60 group-hover/item:text-primary transition-colors" />
-                            <span className="text-muted-foreground group-hover/item:text-foreground transition-colors">
-                              {resp}
-                            </span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-        <Separator className="bg-border" />
-
-        {/* Education */}
-        <section id="education" className="py-16 bg-background text-foreground">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold relative inline-block">
-                Education
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-teal-500"></span>
-              </h2>
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-8">
+            <div className="space-y-8">
               {[
                 {
-                  degree: "Bachelor Of Engineering",
-                  school: "SVIT, Vasad",
-                  period: "2021 - 2025",
-                  cgpa: "9.28",
-                  percentage: "87%",
+                  title: "Software Developer Engineer",
+                  company: "Liquify Solutions",
+                  period: "January 2025 - Present",
                   description:
-                    "Focused on advanced software engineering principles, Web Development, and Core Subjects.",
+                    "Development of enterprise-level web applications using Spring Boot, handling both frontend and backend components, and providing solutions to real-world problems.",
+                  technologies: [
+                    "Spring Boot",
+                    "Java",
+                    "Full Stack Development",
+                  ],
                 },
                 {
-                  degree: "XII | Higher Secondary",
-                  school: "The Ambika Highschool, Gadat",
-                  period: "2019 - 2021",
-                  cgpa: "9.1",
-                  percentage: "86%",
+                  title: "Junior Full Stack Developer",
+                  company: "The Development Studio",
+                  period: "July 2024 - October 2024",
                   description:
-                    "Completed higher secondary education with focus on science and mathematics.",
+                    "Development of enterprise-level web applications, handling frontend components, and integrating APIs for actual data.",
+                  technologies: ["React", "Node.js", "API Integration"],
                 },
                 {
-                  degree: "X | Secondary",
-                  school: "The Ambika Highschool, Gadat",
-                  period: "2018 - 2019",
-                  cgpa: "9.0",
-                  percentage: "85%",
+                  title: "Full Stack Developer",
+                  company: "Zidio Development",
+                  period: "June 2024 - July 2024",
                   description:
-                    "Completed secondary education with excellent academic performance.",
+                    "Developed and maintained resume builder websites, integrated third-party APIs and services, and optimized application performance.",
+                  technologies: [
+                    "React",
+                    "Node.js",
+                    "Performance Optimization",
+                  ],
                 },
-              ].map((edu, index) => (
+              ].map((job, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex-1"
                 >
-                  <Card className="h-full border border-border hover:shadow-md transition-shadow duration-300">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="flex items-center text-xl">
-                        <GraduationCap className="mr-2 h-5 w-5 text-teal-500" />
-                        {edu.degree}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="font-semibold text-teal-500">
-                        {edu.school}
-                      </p>
-                      <p className="text-muted-foreground mb-2">{edu.period}</p>
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        <Badge
-                          variant="secondary"
-                          className="bg-teal-500/10 text-teal-500"
-                        >
-                          CGPA: {edu.cgpa}
-                        </Badge>
-                        <Badge
-                          variant="secondary"
-                          className="bg-teal-500/10 text-teal-500"
-                        >
-                          Percentage: {edu.percentage}
-                        </Badge>
+                  <Card className="border-0 shadow-sm hover:shadow-md transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-3 mb-2">
+                            <Briefcase className="h-5 w-5 text-primary" />
+                            <h3 className="text-xl font-semibold">
+                              {job.title}
+                            </h3>
+                          </div>
+                          <p className="text-primary font-medium mb-1">
+                            {job.company}
+                          </p>
+                          <div className="flex items-center text-muted-foreground text-sm mb-4">
+                            <Calendar className="h-4 w-4 mr-2" />
+                            <span>{job.period}</span>
+                          </div>
+                          <p className="text-muted-foreground leading-relaxed mb-4">
+                            {job.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {job.technologies.map((tech, techIndex) => (
+                              <Badge
+                                key={techIndex}
+                                variant="secondary"
+                                className="text-xs"
+                              >
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                      <p className="text-sm text-muted-foreground">
-                        {edu.description}
-                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -964,98 +922,126 @@ export default function Page() {
             </div>
           </div>
         </section>
-        <Separator className="bg-border" />
 
-        {/* Contact */}
-        <section id="contact" className="py-16 bg-background text-foreground">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold relative inline-block">
-                Contact Me
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-teal-500"></span>
+        {/* Contact Section */}
+        <section
+          id="contact"
+          className="py-20 bg-muted/30 relative overflow-hidden"
+        >
+          <CornerDecorations />
+          {/* Contact Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 right-0 w-88 h-88 bg-rose-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500/8 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/3 left-1/3 w-64 h-64 bg-fuchsia-500/6 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/3 right-1/3 w-72 h-72 bg-purple-500/8 rounded-full blur-3xl"></div>
+          </div>
+
+          {/* Contact Wave Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-10 left-10 w-20 h-20 border-2 border-current rounded-full"></div>
+            <div className="absolute top-20 left-20 w-16 h-16 border-2 border-current rounded-full"></div>
+            <div className="absolute top-30 left-30 w-12 h-12 border-2 border-current rounded-full"></div>
+            <div className="absolute bottom-10 right-10 w-20 h-20 border-2 border-current rounded-full"></div>
+            <div className="absolute bottom-20 right-20 w-16 h-16 border-2 border-current rounded-full"></div>
+            <div className="absolute bottom-30 right-30 w-12 h-12 border-2 border-current rounded-full"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-left mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Get In Touch
               </h2>
-            </div>
-            <Card className="max-w-5xl mx-auto border border-border">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-2xl md:text-3xl text-teal-500">
-                  Get in Touch..👋
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-6">
-                    <p className="text-muted-foreground">
-                      Feel free to reach out to me for any questions,
-                      opportunities, or just to say hello!
-                    </p>
-                    <div className="space-y-4">
-                      <div className="flex items-center p-3 rounded-lg border border-border bg-card/50 hover:bg-card transition-colors">
-                        <div className="w-10 h-10 rounded-full bg-teal-500/10 flex items-center justify-center mr-3">
-                          <Mail className="h-5 w-5 text-teal-500" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Email</p>
-                          <p className="font-medium">omipatel7113@gmail.com</p>
-                        </div>
-                      </div>
+              <p className="text-muted-foreground max-w-2xl">
+                I'm always interested in new opportunities and exciting
+                projects. Let's work together!
+              </p>
+            </motion.div>
 
-                      <div className="flex items-center p-3 rounded-lg border border-border bg-card/50 hover:bg-card transition-colors">
-                        <div className="w-10 h-10 rounded-full bg-teal-500/10 flex items-center justify-center mr-3">
-                          <Phone className="h-5 w-5 text-teal-500" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Phone</p>
-                          <p className="font-medium">+91 9726368386</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center p-3 rounded-lg border border-border bg-card/50 hover:bg-card transition-colors">
-                        <div className="w-10 h-10 rounded-full bg-teal-500/10 flex items-center justify-center mr-3">
-                          <MapPin className="h-5 w-5 text-teal-500" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">
-                            Location
-                          </p>
-                          <p className="font-medium">Bilimora, Gujarat</p>
-                        </div>
-                      </div>
+            <div className="grid md:grid-cols-2 gap-12">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="space-y-6"
+              >
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Let's Connect</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Feel free to reach out for collaborations, opportunities, or
+                    just to say hello!
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4 p-4 rounded-lg bg-background border">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Mail className="h-5 w-5 text-primary" />
                     </div>
-
-                    <div className="pt-4">
-                      <p className="text-sm text-muted-foreground mb-3">
-                        Connect with me on social media
+                    <div>
+                      <p className="font-medium">Email</p>
+                      <p className="text-muted-foreground">
+                        omipatel7113@gmail.com
                       </p>
-                      <div className="flex space-x-4">
-                        <Link
-                          href="https://github.com/Omi-Patel"
-                          target="_blank"
-                          className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-teal-500/10 hover:border-teal-500 transition-colors"
-                        >
-                          <Github className="h-5 w-5" />
-                        </Link>
-                        <Link
-                          href="https://linkedin.com/in/ompatel7113"
-                          target="_blank"
-                          className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-teal-500/10 hover:border-teal-500 transition-colors"
-                        >
-                          <Linkedin className="h-5 w-5" />
-                        </Link>
-                        <Link
-                          href="https://x.com/om_patel07"
-                          target="_blank"
-                          className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-teal-500/10 hover:border-teal-500 transition-colors"
-                        >
-                          <Twitter className="h-5 w-5" />
-                        </Link>
-                      </div>
                     </div>
                   </div>
-
-                  <Form />
+                  <div className="flex items-center space-x-4 p-4 rounded-lg bg-background border">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Phone className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Phone</p>
+                      <p className="text-muted-foreground">+91 9726368386</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4 p-4 rounded-lg bg-background border">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <MapPin className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Location</p>
+                      <p className="text-muted-foreground">
+                        Bilimora, Gujarat, India
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+                <div className="flex space-x-4">
+                  <Button variant="outline" size="icon" asChild>
+                    <Link href="https://github.com/Omi-Patel" target="_blank">
+                      <Github className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <Link
+                      href="https://linkedin.com/in/ompatel7113"
+                      target="_blank"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <Link href="https://x.com/om_patel07" target="_blank">
+                      <Twitter className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <Form />
+              </motion.div>
+            </div>
           </div>
         </section>
       </main>
@@ -1067,7 +1053,7 @@ export default function Page() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-6 right-6 w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center shadow-lg hover:bg-teal-600 transition-colors z-50"
+            className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors z-50"
             onClick={scrollToTop}
             aria-label="Scroll to top"
           >
@@ -1076,17 +1062,15 @@ export default function Page() {
         )}
       </AnimatePresence>
 
-      <footer className="bg-card text-card-foreground py-6 w-full border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm">
-            © 2024 <span className="text-teal-500 font-medium">OM PATEL</span> -
-            All rights reserved
+      {/* Footer */}
+      <footer className="py-8 border-t border-border/50">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground">
+            © 2024 Om Patel. All rights reserved.
           </p>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Made with</span>
-            <span className="text-red-500">❤️</span>
-            <span className="text-sm text-muted-foreground">by Developer.</span>
-          </div>
+          <p className="text-sm text-muted-foreground">
+            Built with ❤️ by Developer.
+          </p>
         </div>
       </footer>
     </div>
