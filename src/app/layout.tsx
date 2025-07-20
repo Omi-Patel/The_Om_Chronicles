@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "https://the-om-chronicles.vercel.app/",
     images: [
       {
-        url: "https://res.cloudinary.com/omicloud07/image/upload/v1753013734/ogfinal_gjizzd.png",
+        url: "https://res.cloudinary.com/omicloud07/image/upload/v1753013438/ogimage_q1p6gt.png",
         width: 1200,
         height: 630,
         alt: "OM PATEL OG Image",
