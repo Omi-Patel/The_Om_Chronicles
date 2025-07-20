@@ -88,8 +88,6 @@ export default function Page() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
-
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
@@ -252,7 +250,9 @@ export default function Page() {
                 transition={{ duration: 0.6 }}
                 className="flex-1"
               >
-                <p className="text-primary font-medium mb-4">Hello 👋, I'm</p>
+                <p className="text-primary font-medium mb-4">
+                  Hello 👋, I&apos;m
+                </p>
                 <h1 className="text-5xl md:text-7xl font-bold mb-4">
                   Om Patel
                 </h1>
@@ -417,7 +417,7 @@ export default function Page() {
                 <div className="max-w-2xl">
                   <h3 className="text-2xl font-semibold mb-4">Who I Am</h3>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    I'm a full-stack developer with a passion for creating
+                    I&apos;m a full-stack developer with a passion for creating
                     meaningful digital experiences. My journey in tech has been
                     driven by curiosity and a constant desire to learn and grow.
                   </p>
@@ -428,7 +428,7 @@ export default function Page() {
                     solutions that make a difference.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    When I'm not coding, you'll find me exploring new
+                    When I&apos;m not coding, you&apos;ll find me exploring new
                     technologies, contributing to open-source projects, or
                     sharing knowledge with the developer community.
                   </p>
@@ -959,8 +959,8 @@ export default function Page() {
                 Get In Touch
               </h2>
               <p className="text-muted-foreground max-w-2xl">
-                I'm always interested in new opportunities and exciting
-                projects. Let's work together!
+                I&apos;m always interested in new opportunities and exciting
+                projects. Let&apos;s work together!
               </p>
             </motion.div>
 
@@ -973,7 +973,9 @@ export default function Page() {
                 className="space-y-6"
               >
                 <div>
-                  <h3 className="text-xl font-semibold mb-4">Let's Connect</h3>
+                  <h3 className="text-xl font-semibold mb-4">
+                    Let&apos;s Connect
+                  </h3>
                   <p className="text-muted-foreground mb-6">
                     Feel free to reach out for collaborations, opportunities, or
                     just to say hello!
