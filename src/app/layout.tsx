@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://res.cloudinary.com/omicloud07/image/upload/v1753012010/Screenshot_2025-07-20_171237_t0wyqo.png",
-        width: 1000,
-        height: 630,
+        width: 800,
+        height: 400,
         alt: "OM PATEL OG Image",
       },
     ],
