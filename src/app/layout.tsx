@@ -17,6 +17,19 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "| OM PATEL |",
   description: "Crafted by om-patel",
+  openGraph: {
+    title: "| OM PATEL |",
+    description: "Crafted by om-patel",
+    url: "https://the-om-chronicles.vercel.app/",
+    images: [
+      {
+        url: "https://res.cloudinary.com/omicloud07/image/upload/v1753012010/Screenshot_2025-07-20_171237_t0wyqo.png",
+        width: 1200,
+        height: 630,
+        alt: "OM PATEL OG Image",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
