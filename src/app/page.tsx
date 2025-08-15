@@ -38,48 +38,24 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ModeToggle";
 import Form from "@/components/Form";
 
-// Corner Decoration Component
+// Corner Decoration Component (visible, reference-inspired ring + ticks)
 const CornerDecorations = ({ className = "" }: { className?: string }) => (
-  <div className={`absolute inset-0 pointer-events-none ${className}`}>
+  <div aria-hidden className={`pointer-events-none absolute inset-0 z-10 ${className}`}>
+    {/* Inset rounded frame */}
+    <div className="absolute inset-4 ring-1 ring-border/70" />
+    {/* Corner L ticks */}
     {/* Top Left */}
-    <div className="absolute top-0 left-0 flex items-center space-x-2 ">
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-      <div className="w-8 h-px bg-muted-foreground/20"></div>
-    </div>
-    <div className="absolute top-0 left-0 flex flex-col items-center space-y-2 ">
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-      <div className="w-px h-8 bg-muted-foreground/20"></div>
-    </div>
-
+    <span className="absolute top-4 left-4 h-5 w-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
+    <span className="absolute top-4 left-4 w-5 h-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
     {/* Top Right */}
-    <div className="absolute top-0 right-0 flex items-center space-x-2 ">
-      <div className="w-8 h-px bg-muted-foreground/20"></div>
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-    </div>
-    <div className="absolute top-0 right-0 flex flex-col items-center space-y-2">
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-      <div className="w-px h-8 bg-muted-foreground/20"></div>
-    </div>
-
+    <span className="absolute top-4 right-4 h-5 w-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
+    <span className="absolute top-4 right-4 w-5 h-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
     {/* Bottom Left */}
-    <div className="absolute bottom-0 left-0 flex items-center space-x-2 ">
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-      <div className="w-8 h-px bg-muted-foreground/20"></div>
-    </div>
-    <div className="absolute bottom-0 left-0 flex flex-col items-center space-y-2">
-      <div className="w-px h-8 bg-muted-foreground/20"></div>
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-    </div>
-
+    <span className="absolute bottom-4 left-4 h-5 w-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
+    <span className="absolute bottom-4 left-4 w-5 h-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
     {/* Bottom Right */}
-    <div className="absolute bottom-0 right-0 flex items-center space-x-2 ">
-      <div className="w-8 h-px bg-muted-foreground/20"></div>
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-    </div>
-    <div className="absolute bottom-0 right-0 flex flex-col items-center space-y-2">
-      <div className="w-px h-8 bg-muted-foreground/20"></div>
-      <Plus className="h-3 w-3 text-muted-foreground/40" />
-    </div>
+    <span className="absolute bottom-4 right-4 h-5 w-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
+    <span className="absolute bottom-4 right-4 w-5 h-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
   </div>
 );
 
@@ -87,40 +63,40 @@ export default function Page() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const sections = [
-        "home",
-        "about",
-        "skills",
-        "projects",
-        "experience",
-        "contact",
-      ];
-      if (window.scrollY > 500) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-
-      const scrollPosition = window.scrollY;
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (
-            scrollPosition >= offsetTop - 100 &&
-            scrollPosition < offsetTop + offsetHeight - 100
-          ) {
-            setActiveSection(section);
-            break;
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const sectionIds = navItems.map((n) => n.id);
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop || document.body.scrollTop;
+        const scrollHeight = doc.scrollHeight - doc.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        setScrollProgress(progress);
+        setScrolled(scrollTop > 0);
+        setShowScrollTop(scrollTop > 500);
+        for (const section of sectionIds) {
+          const element = document.getElementById(section);
+          if (element) {
+            const { offsetTop, offsetHeight } = element;
+            if (
+              scrollTop >= offsetTop - 100 &&
+              scrollTop < offsetTop + offsetHeight - 100
+            ) {
+              setActiveSection(section);
+              break;
+            }
           }
         }
-      }
+        ticking = false;
+      });
     };
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -152,7 +128,17 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+      <header className={`fixed top-0 left-0 right-0 z-50 border-b border-border/50 ${scrolled ? "bg-background/80 backdrop-blur-md" : "bg-transparent"}`}>
+        {/* Scroll progress bar */}
+        <div
+          className="absolute left-0 right-0 top-0 h-[2px] bg-transparent"
+          aria-hidden
+        >
+          <span
+            className="block h-full bg-primary/70 transition-[width] duration-150"
+            style={{ width: `${scrollProgress}%` }}
+          />
+        </div>
         <nav className="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
           <Link
             href="/"
@@ -162,20 +148,26 @@ export default function Page() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`text-sm font-medium transition-colors ${
-                  activeSection === item.id
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="relative px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  <span className={isActive ? "text-primary" : ""}>{item.label}</span>
+                  <span
+                    className={`absolute left-3 right-3 -bottom-0.5 h-px origin-left bg-primary/80 transition-transform duration-200 ${
+                      isActive ? "scale-x-100" : "scale-x-0"
+                    }`}
+                    aria-hidden
+                  />
+                </button>
+              );
+            })}
           </div>
 
           <div className="flex items-center space-x-4">
@@ -226,7 +218,7 @@ export default function Page() {
         {/* Hero Section */}
         <section
           id="home"
-          className="min-h-screen py-20 relative overflow-hidden"
+          className="group relative overflow-hidden scroll-mt-24"
         >
           <CornerDecorations />
           {/* Background Elements */}
@@ -242,8 +234,8 @@ export default function Page() {
           {/* Grid Pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--muted-foreground)/0.05)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--muted-foreground)/0.05)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <div className="flex flex-col md:flex-row gap-12 items-start">
+          <div className="max-w-7xl mx-auto px-6 relative z-10 min-h-[calc(100vh-4rem)] flex items-center">
+            <div className="flex flex-col md:flex-row gap-12 items-start w-full">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -336,7 +328,7 @@ export default function Page() {
         {/* About Section */}
         <section
           id="about"
-          className="py-20 bg-muted/30 relative overflow-hidden"
+          className="group py-20 bg-muted/30 relative overflow-hidden scroll-mt-24"
         >
           <CornerDecorations />
           {/* About Background Elements */}
@@ -447,7 +439,7 @@ export default function Page() {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="py-20 relative overflow-hidden">
+        <section id="skills" className="group py-20 relative overflow-hidden scroll-mt-24">
           <CornerDecorations />
           {/* Skills Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
@@ -626,7 +618,7 @@ export default function Page() {
         {/* Projects Section */}
         <section
           id="projects"
-          className="py-20 bg-muted/30 relative overflow-hidden"
+          className="group py-20 bg-muted/30 relative overflow-hidden scroll-mt-24"
         >
           <CornerDecorations />
           {/* Projects Background Elements */}
@@ -741,7 +733,7 @@ export default function Page() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="h-full flex flex-col border border-border/60 bg-card/50 hover:bg-card transition-all duration-300 group overflow-hidden">
+                  <Card className="h-full flex flex-col border border-border/60 bg-card/50 hover:bg-card transition-all duration-300 group overflow-hidden motion-safe:hover:-translate-y-0.5">
                     <CardHeader className="pb-4 pt-6 px-6">
                       <div className="flex items-start justify-between mb-3">
                         <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors line-clamp-2">
@@ -804,7 +796,7 @@ export default function Page() {
         </section>
 
         {/* Experience Section */}
-        <section id="experience" className="py-20 relative overflow-hidden">
+        <section id="experience" className="group py-20 relative overflow-hidden scroll-mt-24">
           <CornerDecorations />
           {/* Experience Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
@@ -926,7 +918,7 @@ export default function Page() {
         {/* Contact Section */}
         <section
           id="contact"
-          className="py-20 bg-muted/30 relative overflow-hidden"
+          className="group py-20 bg-muted/30 relative overflow-hidden scroll-mt-24"
         >
           <CornerDecorations />
           {/* Contact Background Elements */}
