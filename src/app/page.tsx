@@ -235,28 +235,48 @@ export default function Page() {
 
           <div className="max-w-7xl mx-auto px-6 relative z-10 min-h-[calc(100vh-4rem)] flex items-center">
             <div className="flex flex-col md:flex-row gap-12 items-start w-full">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="flex-1"
-              >
-                <p className="text-primary font-medium mb-4">
+              <div className="flex-1">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-primary font-medium mb-4"
+                >
                   Hello 👋, I&apos;m
-                </p>
-                <h1 className="text-5xl md:text-7xl font-bold mb-4">
+                </motion.p>
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-5xl md:text-7xl font-bold mb-4"
+                >
                   Om Patel
-                </h1>
-                <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-xl md:text-2xl text-muted-foreground mb-4"
+                >
                   Software Developer
-                </p>
-                <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed mb-8">
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-lg text-muted-foreground max-w-2xl leading-relaxed mb-8"
+                >
                   Passionate about creating elegant solutions and building
                   impactful digital experiences. I specialize in modern web
                   technologies and love turning complex problems into simple,
                   beautiful interfaces.
-                </p>
-                <div className="flex flex-wrap gap-4 mb-8">
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="flex flex-wrap gap-4 mb-8"
+                >
                   <Button
                     size="lg"
                     onClick={() => scrollToSection("contact")}
@@ -274,8 +294,13 @@ export default function Page() {
                       Resume
                     </Link>
                   </Button>
-                </div>
-                <div className="flex space-x-6">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="flex space-x-6"
+                >
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -318,8 +343,8 @@ export default function Page() {
                       <TooltipContent>Twitter</TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
