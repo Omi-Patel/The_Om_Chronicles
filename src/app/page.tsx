@@ -749,6 +749,16 @@ export default function Page() {
                     "https://github.com/Omi-Patel/Project_Management_Client",
                   featured: true,
                 },
+                {
+                  title: "LiftLogX",
+                  description:
+                    "A platform for users to log their gym workouts and manage their progress.",
+                  tags: ["Next.js", "Tailwind CSS", "PostgreSQL", "NeonDB", "NeonAuth"],
+                  liveUrl: "https://gym-logbook.vercel.app/",
+                  githubUrl:
+                    "https://github.com/Omi-Patel/gym-logbook",
+                  featured: true,
+                }
               ].map((project, index) => (
                 <motion.div
                   key={index}
