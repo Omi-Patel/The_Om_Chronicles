@@ -60,7 +60,7 @@ export const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/50">Om Patel</span>
+              Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/50">Om Patel</span>
               <br />
               <span className="text-foreground/80">Software Developer.</span>
             </motion.h1>
