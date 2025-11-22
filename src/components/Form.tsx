@@ -98,7 +98,7 @@ export default function Form() {
                 type="text"
                 placeholder="Your Name"
                 autoComplete="false"
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background transition-colors"
+                className="w-full px-4 py-3 border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background transition-colors"
                 {...register("from_name", {
                   required: "Name is required",
                   maxLength: 80,
@@ -116,7 +116,7 @@ export default function Form() {
                 type="email"
                 placeholder="Your Email"
                 autoComplete="false"
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background transition-colors"
+                className="w-full px-4 py-3 border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background transition-colors"
                 {...register("email", {
                   required: "Enter your email",
                   pattern: {
@@ -136,7 +136,7 @@ export default function Form() {
               <textarea
                 rows={4}
                 placeholder="Your Message"
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background transition-colors resize-none"
+                className="w-full px-4 py-3 border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background transition-colors resize-none"
                 {...register("message", { required: "Enter your Message" })}
               />
               {errors.message && (
@@ -153,7 +153,7 @@ export default function Form() {
             >
               {isSubmitting ? (
                 <div className="flex items-center">
-                  <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2"></div>
+                  <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground animate-spin mr-2"></div>
                   Sending...
                 </div>
               ) : (
