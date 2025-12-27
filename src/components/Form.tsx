@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Send, CheckCircle, XCircle } from "lucide-react";
+import { Send, CheckCircle, XCircle, Loader2 } from "lucide-react";
 
 export default function Form() {
   const {
@@ -153,7 +153,7 @@ export default function Form() {
             >
               {isSubmitting ? (
                 <div className="flex items-center">
-                  <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground animate-spin mr-2"></div>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Sending...
                 </div>
               ) : (
