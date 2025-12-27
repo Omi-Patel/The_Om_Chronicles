@@ -8,7 +8,10 @@ import Form from "@/components/Form";
 
 // Corner Decoration Component
 const CornerDecorations = ({ className = "" }: { className?: string }) => (
-  <div aria-hidden className={`pointer-events-none absolute inset-0 z-10 ${className} hidden md:block`}>
+  <div
+    aria-hidden
+    className={`pointer-events-none absolute inset-0 z-10 ${className} hidden md:block`}
+  >
     <div className="absolute inset-4 ring-1 ring-border/70" />
     <span className="absolute top-4 left-4 h-5 w-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
     <span className="absolute top-4 left-4 w-5 h-px bg-border/80 transition-colors duration-200 group-hover:bg-primary/60" />
@@ -72,9 +75,7 @@ export const Contact = () => {
             className="space-y-6"
           >
             <div>
-              <h3 className="text-xl font-semibold mb-4">
-                Let&apos;s Connect
-              </h3>
+              <h3 className="text-xl font-semibold mb-4">Let&apos;s Connect</h3>
               <p className="text-muted-foreground mb-6">
                 Feel free to reach out for collaborations, opportunities, or
                 just to say hello!
@@ -147,4 +148,3 @@ export const Contact = () => {
     </section>
   );
 };
-
