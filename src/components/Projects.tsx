@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ExternalLink, Github, Star, ArrowUpRight, FolderGit2 } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 
 // Corner Decoration Component
 const CornerDecorations = ({ className = "" }: { className?: string }) => (
@@ -30,37 +29,17 @@ export const Projects = () => {
       tags: ["React", "Tailwind CSS", "UI Library"],
       liveUrl: "https://retro-ui-component.vercel.app/",
       githubUrl: "https://github.com/Omi-Patel/retroUI_Component",
-      featured: true,
-    },
-    {
-      title: "motivate.js - NPM Package",
-      description:
-        "An npm package that provides motivational quotes when errors occur during development.",
-      tags: ["NPM", "JavaScript", "Node.js"],
-      liveUrl: "https://www.npmjs.com/package/motivatejs",
-      githubUrl: "https://github.com/Omi-Patel/motivatejs",
-      featured: false,
     },
 
+    {
+      title: "postER",
+      description:
+        "An AI-powered content creator that automates social media post generation, helping creators and businesses produce engaging, on-brand content at scale.",
+      tags: ["AI", "MERN Stack", "Social Media", "Payment Gateway"],
+      liveUrl: "https://poster.basecase.site/",
+      githubUrl: "",
+    },
 
-    {
-      title: "Code_Mine",
-      description:
-        "A technology blog platform where users can read and share thoughts in the comment section.",
-      tags: ["Next.js", "Blog", "Comments"],
-      liveUrl: "https://code-mine.vercel.app/",
-      githubUrl: "https://github.com/Omi-Patel/CodeMine_",
-      featured: false,
-    },
-    {
-      title: "getYourTiffin()",
-      description:
-        "A food ordering platform with Razorpay integration and admin interface for order management.",
-      tags: ["Next.js", "Razorpay", "MongoDB"],
-      liveUrl: "https://book-your-tiffin-online.vercel.app/",
-      githubUrl: "https://github.com/Omi-Patel/BookYourTiffin",
-      featured: true,
-    },
     {
       title: "Veltrix | Project Management",
       description:
@@ -70,16 +49,6 @@ export const Projects = () => {
         "https://project-management-client-eosin.vercel.app/",
       githubUrl:
         "https://github.com/Omi-Patel/Project_Management_Client",
-      featured: true,
-    },
-    {
-      title: "resumifyX",
-      description:
-        "A dynamic web application for creating professional resumes with PDF export functionality.",
-      tags: ["React", "Resume Builder", "PDF Export"],
-      liveUrl: "https://resumifyx.vercel.app/",
-      githubUrl: "https://github.com/Omi-Patel/Resume_Builder",
-      featured: false,
     },
     {
       title: "Saarthi_EngStudy",
@@ -89,7 +58,6 @@ export const Projects = () => {
       liveUrl: "https://saarthi-engstudy.vercel.app/",
       githubUrl:
         "https://github.com/Omi-Patel/Saarthi_EngStudy_Frontend",
-      featured: false,
     },
 
     {
@@ -100,8 +68,23 @@ export const Projects = () => {
       liveUrl: "https://gym-logbook.vercel.app/",
       githubUrl:
         "https://github.com/Omi-Patel/gym-logbook",
-      featured: true,
     },
+    {
+      title: "getYourTiffin()",
+      description:
+        "A food ordering platform with Razorpay integration and admin interface for order management.",
+      tags: ["Next.js", "Razorpay", "MongoDB"],
+      liveUrl: "https://book-your-tiffin-online.vercel.app/",
+      githubUrl: "https://github.com/Omi-Patel/BookYourTiffin",
+    },
+    {
+      title: "motivate.js - NPM Package",
+      description:
+        "An npm package that provides motivational quotes when errors occur during development.",
+      tags: ["NPM", "JavaScript", "Node.js"],
+      liveUrl: "https://www.npmjs.com/package/motivatejs",
+      githubUrl: "https://github.com/Omi-Patel/motivatejs",
+    }
   ];
 
   return (
@@ -146,85 +129,104 @@ export const Projects = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)]">
+        <div className="flex flex-col border-t border-border/50">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               viewport={{ once: true }}
-              className={`group/card relative ${project.featured ? "md:col-span-2 lg:col-span-2" : "col-span-1"
-                }`}
             >
-              <Card className="h-full flex flex-col border-border/50 bg-card/50 hover:bg-card/80 transition-all duration-500 hover:shadow-xl hover:border-primary/20 overflow-hidden relative backdrop-blur-sm">
+              <Link
+                href={project.liveUrl}
+                target="_blank"
+                className="group/row relative block border-b border-border/50"
+              >
+                {/* Hover wash */}
+                <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/[0.04] via-primary/[0.02] to-transparent opacity-0 group-hover/row:opacity-100 transition-opacity duration-500" />
+                {/* Left accent bar */}
+                <span className="pointer-events-none absolute left-0 top-0 h-full w-0.5 bg-primary scale-y-0 group-hover/row:scale-y-100 origin-top transition-transform duration-500" />
 
-                {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-
-                <CardHeader className="pb-2">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-1">
-                      <CardTitle className="text-xl font-bold flex items-center gap-2 group-hover/card:text-primary transition-colors">
-                        {project.title}
-                        <ArrowUpRight className="h-4 w-4 opacity-0 -translate-y-1 translate-x-1 group-hover/card:opacity-100 group-hover/card:translate-y-0 group-hover/card:translate-x-0 transition-all duration-300" />
-                      </CardTitle>
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <FolderGit2 className="h-3 w-3 mr-1" />
-                        Project
-                      </div>
-                    </div>
-                    {project.featured && (
-                      <div className="bg-yellow-500/10 p-1.5 rounded-full">
-                        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                      </div>
-                    )}
+                <div className="relative flex flex-col gap-5 px-2 py-7 md:flex-row md:items-center md:gap-8 md:px-6 md:py-8">
+                  {/* Index */}
+                  <div className="flex w-full items-center md:w-20 md:shrink-0">
+                    <span className="text-sm tabular-nums text-muted-foreground/60 transition-colors duration-300 group-hover/row:text-primary">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                   </div>
-                </CardHeader>
 
-                <CardContent className="flex-grow pb-4">
-                  <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 mb-4">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
+                  {/* Title + description */}
+                  <div className="min-w-0 flex-1">
+                    <h3 className="flex items-center gap-2 text-xl font-semibold tracking-tight transition-colors duration-300 group-hover/row:text-primary md:text-2xl">
+                      <span className="truncate">{project.title}</span>
+                      <ArrowUpRight className="h-5 w-5 shrink-0 -translate-x-1 translate-y-1 opacity-0 transition-all duration-300 group-hover/row:translate-x-0 group-hover/row:translate-y-0 group-hover/row:opacity-100" />
+                    </h3>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 md:w-64 md:shrink-0 md:justify-end">
                     {project.tags.map((tag, tagIndex) => (
                       <Badge
                         key={tagIndex}
                         variant="secondary"
-                        className="text-xs font-medium bg-primary/5 text-primary/80 hover:bg-primary/10 hover:text-primary border-transparent transition-colors duration-300"
+                        className="border-transparent bg-primary/5 text-xs font-medium text-primary/80 transition-colors duration-300 group-hover/row:bg-primary/10 group-hover/row:text-primary"
                       >
                         {tag}
                       </Badge>
                     ))}
                   </div>
-                </CardContent>
 
-                <CardFooter className="pt-0 pb-6">
-                  <div className="flex items-center justify-between w-full pt-4 border-t border-border/40">
-                    <div className="flex gap-4">
-                      <Link
-                        href={project.githubUrl}
-                        target="_blank"
-                        className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm"
+                  {/* Links */}
+                  <div className="flex items-center gap-1 md:shrink-0">
+                    {project.githubUrl && (
+                      <span
+                        role="link"
+                        tabIndex={0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(project.githubUrl, "_blank", "noopener,noreferrer");
+                        }}
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors duration-300 hover:bg-primary/10 hover:text-foreground"
+                        aria-label={`${project.title} source code`}
                       >
                         <Github className="h-4 w-4" />
-                        <span className="hidden sm:inline">Code</span>
-                      </Link>
-                      <Link
-                        href={project.liveUrl}
-                        target="_blank"
-                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 text-sm"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        <span className="hidden sm:inline">Live Demo</span>
-                      </Link>
-                    </div>
+                      </span>
+                    )}
+                    <span
+                      className="flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors duration-300 group-hover/row:bg-primary/10 group-hover/row:text-primary"
+                      aria-hidden
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </span>
                   </div>
-                </CardFooter>
-              </Card>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-12 flex justify-end"
+        >
+          <Link
+            href="https://github.com/Omi-Patel"
+            target="_blank"
+            className="group/more inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/50 px-6 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:bg-card hover:shadow-lg"
+          >
+            <Github className="h-4 w-4 text-muted-foreground transition-colors duration-300 group-hover/more:text-primary" />
+            View more on GitHub
+            <ArrowUpRight className="h-4 w-4 -translate-x-1 transition-transform duration-300 group-hover/more:translate-x-0 group-hover/more:text-primary" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
