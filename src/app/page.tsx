@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUp, AlignRight } from "lucide-react";
+import { ArrowUp, AlignRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/ModeToggle";
 
 import { Hero } from "@/components/Hero";
@@ -64,6 +63,13 @@ export default function Page() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -128,58 +134,86 @@ export default function Page() {
 
           <div className="ml-1 flex items-center gap-1">
             <ModeToggle />
-            {/* Mobile Menu */}
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="md:hidden"
-                  aria-label="Toggle menu"
-                >
-                  <AlignRight className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] p-0">
-                <div className="flex h-full flex-col">
-                  <div className="border-b border-border/60 p-6">
-                    <p className="font-mono text-base font-semibold tracking-tight">
-                      om<span className="text-primary">.</span>
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Software Developer
-                    </p>
-                  </div>
-                  <nav className="flex flex-col gap-1 p-4">
-                    {navItems.map((item, index) => (
-                      <button
-                        key={item.id}
-                        onClick={() => scrollToSection(item.id)}
-                        className={`flex items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors ${
-                          activeSection === item.id
-                            ? "bg-secondary text-foreground"
-                            : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
-                        }`}
-                      >
-                        <span
-                          className={`font-mono text-xs ${
-                            activeSection === item.id
-                              ? "text-primary"
-                              : "text-muted-foreground/50"
-                          }`}
-                        >
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        {item.label}
-                      </button>
-                    ))}
-                  </nav>
-                </div>
-              </SheetContent>
-            </Sheet>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              aria-label="Open menu"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <AlignRight className="h-5 w-5" />
+            </Button>
           </div>
         </nav>
       </header>
+
+      {/* Mobile menu — circular reveal from the trigger corner */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ clipPath: "circle(0px at calc(100% - 3.5rem) 3rem)" }}
+            animate={{
+              clipPath: `circle(${
+                typeof window !== "undefined"
+                  ? Math.hypot(window.innerWidth, window.innerHeight)
+                  : 1500
+              }px at calc(100% - 3.5rem) 3rem)`,
+            }}
+            exit={{ clipPath: "circle(0px at calc(100% - 3.5rem) 3rem)" }}
+            transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
+            className="fixed inset-0 z-[80] flex flex-col bg-background md:hidden"
+          >
+            <div className="flex items-center justify-between px-6 pt-7">
+              <p className="font-mono text-base font-semibold tracking-tight">
+                om<span className="text-primary">.</span>
+              </p>
+              <Button
+                variant="outline"
+                size="icon"
+                aria-label="Close menu"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+
+            <nav className="flex flex-1 flex-col justify-center gap-1 px-8">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + index * 0.05, duration: 0.35 }}
+                  onClick={() => scrollToSection(item.id)}
+                  className="flex items-baseline gap-4 py-3 text-left"
+                >
+                  <span className="font-mono text-sm text-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`text-3xl font-semibold tracking-tight transition-colors ${
+                      activeSection === item.id
+                        ? "text-primary"
+                        : "text-foreground"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                </motion.button>
+              ))}
+            </nav>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="px-8 pb-10 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
+            >
+              omipatel7113@gmail.com
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main>
         <Hero />

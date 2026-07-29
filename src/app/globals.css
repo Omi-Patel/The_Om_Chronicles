@@ -66,6 +66,13 @@
   }
 }
 
+/* Theme toggle: circular reveal via the View Transitions API */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
