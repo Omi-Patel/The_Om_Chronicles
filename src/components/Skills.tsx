@@ -30,12 +30,12 @@ const skillGroups = [
     title: "Frontend",
     note: "Interfaces that feel effortless.",
     skills: [
-      { name: "React", icon: SiReact },
+      { name: "React", icon: SiReact, color: "#61DAFB" },
       { name: "Next.js", icon: SiNextdotjs },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Framer Motion", icon: SiFramer },
-      { name: "HTML / CSS", icon: SiHtml5 },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Framer Motion", icon: SiFramer, color: "#0055FF" },
+      { name: "HTML / CSS", icon: SiHtml5, color: "#E34F26" },
     ],
   },
   {
@@ -43,11 +43,11 @@ const skillGroups = [
     title: "Backend",
     note: "Robust, scalable server-side systems.",
     skills: [
-      { name: "Node.js", icon: SiNodedotjs },
+      { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
       { name: "Express", icon: SiExpress },
-      { name: "Spring Boot", icon: SiSpringboot },
-      { name: "Java", icon: FaJava },
-      { name: "Kotlin", icon: SiKotlin },
+      { name: "Spring Boot", icon: SiSpringboot, color: "#6DB33F" },
+      { name: "Java", icon: FaJava, color: "#F89820" },
+      { name: "Kotlin", icon: SiKotlin, color: "#7F52FF" },
       { name: "REST APIs", icon: TbApi },
     ],
   },
@@ -56,9 +56,9 @@ const skillGroups = [
     title: "Database",
     note: "Efficient schemas, reliable data.",
     skills: [
-      { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "MySQL", icon: SiMysql },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+      { name: "MySQL", icon: SiMysql, color: "#4479A1" },
       { name: "BaaS", icon: TbCloud },
     ],
   },
@@ -68,10 +68,10 @@ const skillGroups = [
     note: "Shipping with modern workflows.",
     skills: [
       { name: "Git & GitHub", icon: SiGithub },
-      { name: "Docker", icon: SiDocker },
-      { name: "AWS", icon: FaAws },
+      { name: "Docker", icon: SiDocker, color: "#2496ED" },
+      { name: "AWS", icon: FaAws, color: "#FF9900" },
       { name: "Vercel", icon: SiVercel },
-      { name: "Postman", icon: SiPostman },
+      { name: "Postman", icon: SiPostman, color: "#FF6C37" },
     ],
   },
 ];
@@ -128,7 +128,13 @@ export const Skills = () => {
                     viewport={{ once: true }}
                     className="inline-flex cursor-default items-center gap-2 rounded-full border border-border bg-background px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:text-foreground"
                   >
-                    <skill.icon className="h-3.5 w-3.5" aria-hidden />
+                    <skill.icon
+                      className={`h-3.5 w-3.5 ${
+                        "color" in skill ? "" : "text-foreground"
+                      }`}
+                      style={"color" in skill ? { color: skill.color } : undefined}
+                      aria-hidden
+                    />
                     {skill.name}
                   </motion.span>
                 ))}
