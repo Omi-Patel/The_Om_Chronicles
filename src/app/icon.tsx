@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const size = {
   width: 32,
   height: 32,
@@ -8,23 +7,24 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default function () {
+export default function Icon() {
   return new ImageResponse(
     (
       <div
         style={{
-          fontSize: 16,
-          background: "black",
+          fontSize: 15,
+          fontWeight: 700,
+          background: "#12100e",
           width: "100%",
           height: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "lightgreen",
+          color: "#f5f2ed",
           borderRadius: "30%",
         }}
       >
-        OM
+        om<span style={{ color: "#fb923c" }}>.</span>
       </div>
     ),
     { ...size }

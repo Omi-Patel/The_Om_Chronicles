@@ -15,11 +15,13 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "| OM PATEL |",
-  description: "Crafted by om-patel",
+  title: "Om Patel — Software Developer",
+  description:
+    "Full-stack developer building clean, scalable web experiences.",
   openGraph: {
-    title: "| OM PATEL |",
-    description: "Crafted by om-patel",
+    title: "Om Patel — Software Developer",
+    description:
+      "Full-stack developer building clean, scalable web experiences.",
     url: "https://the-om-chronicles.vercel.app/",
     images: [
       {
@@ -38,9 +40,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-primary/10 selection:text-primary`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -48,7 +50,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="sm:px-4">{children}</div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

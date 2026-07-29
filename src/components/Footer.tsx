@@ -1,15 +1,17 @@
 export const Footer = () => {
   return (
-    <footer className="py-8 border-t border-border/50">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-sm text-muted-foreground">
-          © 2024 Om Patel. All rights reserved.
+    <footer className="border-t border-border/60">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row">
+        <p className="font-mono text-sm font-semibold tracking-tight">
+          om<span className="text-primary">.</span>
         </p>
         <p className="text-sm text-muted-foreground">
-          Built with ❤️ by Developer.
+          © {new Date().getFullYear()} Om Patel. All rights reserved.
+        </p>
+        <p className="font-mono text-xs text-muted-foreground">
+          Built with Next.js & Tailwind CSS
         </p>
       </div>
     </footer>
   );
 };
-
