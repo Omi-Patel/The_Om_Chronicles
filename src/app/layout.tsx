@@ -47,14 +47,6 @@ export const metadata: Metadata = {
     siteName: "Om Patel — Portfolio",
     title: "Om Patel — Software Developer",
     description: siteDescription,
-    images: [
-      {
-        url: "https://res.cloudinary.com/omicloud07/image/upload/v1753013438/ogimage_q1p6gt.png",
-        width: 1200,
-        height: 630,
-        alt: "Om Patel — Software Developer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -62,9 +54,6 @@ export const metadata: Metadata = {
     creator: "@om_patel07",
     title: "Om Patel — Software Developer",
     description: siteDescription,
-    images: [
-      "https://res.cloudinary.com/omicloud07/image/upload/v1753013438/ogimage_q1p6gt.png",
-    ],
   },
   robots: {
     index: true,
