@@ -46,8 +46,8 @@ const skillGroups = [
 
 export const Skills = () => {
   return (
-    <section id="skills" className="scroll-mt-16 border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-28">
+    <section id="skills" className="scroll-mt-16">
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
         <SectionHeading
           index="02"
           eyebrow="Skills"

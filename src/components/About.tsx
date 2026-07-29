@@ -11,8 +11,8 @@ const highlight = "font-medium text-foreground";
 
 export const About = () => {
   return (
-    <section id="about" className="scroll-mt-16 border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-28">
+    <section id="about" className="scroll-mt-16">
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
         <SectionHeading index="01" eyebrow="About" title="A little about me" />
 
         <div className="grid items-start gap-12 md:grid-cols-[1fr,320px] lg:gap-20">

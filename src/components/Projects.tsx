@@ -66,8 +66,8 @@ const projects = [
 
 export const Projects = () => {
   return (
-    <section id="projects" className="scroll-mt-16 border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-28">
+    <section id="projects" className="scroll-mt-16">
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
         <SectionHeading
           index="03"
           eyebrow="Projects"
