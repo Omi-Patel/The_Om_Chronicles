@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="16" fill="#12100e"/>
+  <text x="30" y="43" font-family="ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace" font-size="28" font-weight="700" text-anchor="middle" fill="#f5f2ed">om</text>
+  <circle cx="52" cy="40" r="4" fill="#fb923c"/>
+</svg>
