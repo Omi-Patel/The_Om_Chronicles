@@ -14,24 +14,92 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+const siteUrl = "https://the-om-chronicles.vercel.app";
+const siteDescription =
+  "Om Patel is a full-stack developer building clean, scalable web experiences with React, Next.js, Spring Boot and Node.js.";
+
 export const metadata: Metadata = {
-  title: "Om Patel — Software Developer",
-  description:
-    "Full-stack developer building clean, scalable web experiences.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Om Patel — Software Developer",
+    template: "%s — Om Patel",
+  },
+  description: siteDescription,
+  keywords: [
+    "Om Patel",
+    "Software Developer",
+    "Full-Stack Developer",
+    "React Developer",
+    "Next.js Developer",
+    "Spring Boot",
+    "Web Developer India",
+    "Portfolio",
+  ],
+  authors: [{ name: "Om Patel", url: siteUrl }],
+  creator: "Om Patel",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Om Patel — Portfolio",
     title: "Om Patel — Software Developer",
-    description:
-      "Full-stack developer building clean, scalable web experiences.",
-    url: "https://the-om-chronicles.vercel.app/",
+    description: siteDescription,
     images: [
       {
         url: "https://res.cloudinary.com/omicloud07/image/upload/v1753013438/ogimage_q1p6gt.png",
         width: 1200,
         height: 630,
-        alt: "OM PATEL OG Image",
+        alt: "Om Patel — Software Developer",
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    site: "@om_patel07",
+    creator: "@om_patel07",
+    title: "Om Patel — Software Developer",
+    description: siteDescription,
+    images: [
+      "https://res.cloudinary.com/omicloud07/image/upload/v1753013438/ogimage_q1p6gt.png",
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Om Patel",
+  url: siteUrl,
+  jobTitle: "Software Developer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Liquify Solutions",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bilimora",
+    addressRegion: "Gujarat",
+    addressCountry: "IN",
+  },
+  email: "mailto:omipatel7113@gmail.com",
+  sameAs: [
+    "https://github.com/Omi-Patel",
+    "https://linkedin.com/in/ompatel7113",
+    "https://x.com/om_patel07",
+  ],
 };
 
 export default function RootLayout({
@@ -44,6 +112,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

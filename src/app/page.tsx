@@ -106,7 +106,7 @@ export default function Page() {
         >
           <Link
             href="/"
-            className="mr-2 font-mono text-base font-semibold tracking-tight transition-colors hover:text-primary"
+            className="mr-2 font-mono text-2xl font-bold tracking-tight transition-colors hover:text-primary"
           >
             om<span className="text-primary">.</span>
           </Link>
@@ -164,7 +164,7 @@ export default function Page() {
             className="fixed inset-0 z-[80] flex flex-col bg-background md:hidden"
           >
             <div className="flex items-center justify-between px-6 pt-7">
-              <p className="font-mono text-base font-semibold tracking-tight">
+              <p className="font-mono text-2xl font-bold tracking-tight">
                 om<span className="text-primary">.</span>
               </p>
               <Button
