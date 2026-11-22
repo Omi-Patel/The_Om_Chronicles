@@ -9,7 +9,15 @@ export const Footer = () => {
           © {new Date().getFullYear()} Om Patel. All rights reserved.
         </p>
         <p className="font-mono text-xs text-muted-foreground">
-          Built with Next.js & Tailwind CSS
+          Also building{" "}
+          <a
+            href="https://www.basecase.site/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+          >
+            base<span className="text-primary">Case</span>
+          </a>
         </p>
       </div>
     </footer>
