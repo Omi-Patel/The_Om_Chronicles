@@ -13,6 +13,7 @@ import { Projects } from "@/components/Projects";
 import { Experience } from "@/components/Experience";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { BaseCaseBadge } from "@/components/BaseCaseBadge";
 
 const navItems = [
   { id: "home", label: "Home" },
@@ -239,6 +240,8 @@ export default function Page() {
           </motion.button>
         )}
       </AnimatePresence>
+
+      <BaseCaseBadge />
 
       <Footer />
     </div>
