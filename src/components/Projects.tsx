@@ -23,44 +23,20 @@ const projects = [
     githubUrl: "",
   },
   {
-    title: "Veltrix — Project Management",
+    title: "Serveo — Smart QR Ordering",
     description:
-      "A comprehensive project management system with real-time collaboration and deadline tracking.",
-    tags: ["React.js", "PostgreSQL", "Spring Boot"],
-    liveUrl: "https://project-management-client-eosin.vercel.app/",
-    githubUrl: "https://github.com/Omi-Patel/Project_Management_Client",
+      "A QR-based restaurant ordering system where guests scan a table code to order, and the kitchen, waiters, and owners track every order live.",
+    tags: ["Real-time", "Role-based Auth", "Payments"],
+    liveUrl: "https://serveo-app.vercel.app/",
+    githubUrl: "",
   },
   {
-    title: "Saarthi_EngStudy",
+    title: "Perch — Dynamic Island for Windows",
     description:
-      "A study material sharing platform with secure uploads, cloud storage, and a smooth user experience.",
-    tags: ["Next.js", "MongoDB", "Cloud Storage"],
-    liveUrl: "https://saarthi-engstudy.vercel.app/",
-    githubUrl: "https://github.com/Omi-Patel/Saarthi_EngStudy_Frontend",
-  },
-  {
-    title: "LiftLogX",
-    description:
-      "A platform for users to log their gym workouts and manage their progress.",
-    tags: ["Next.js", "PostgreSQL", "NeonDB"],
-    liveUrl: "https://gym-logbook.vercel.app/",
-    githubUrl: "https://github.com/Omi-Patel/gym-logbook",
-  },
-  {
-    title: "getYourTiffin()",
-    description:
-      "A food ordering platform with Razorpay integration and an admin interface for order management.",
-    tags: ["Next.js", "Razorpay", "MongoDB"],
-    liveUrl: "https://book-your-tiffin-online.vercel.app/",
-    githubUrl: "https://github.com/Omi-Patel/BookYourTiffin",
-  },
-  {
-    title: "motivate.js — NPM Package",
-    description:
-      "An npm package that provides motivational quotes when errors occur during development.",
-    tags: ["NPM", "JavaScript", "Node.js"],
-    liveUrl: "https://www.npmjs.com/package/motivatejs",
-    githubUrl: "https://github.com/Omi-Patel/motivatejs",
+      "A notch-style productivity app for Windows 10 and 11: a small pill at the top of the screen that expands into tools like a Pomodoro timer, tasks, notes, media controls, and clipboard history.",
+    tags: ["Desktop App", "Windows", "Local-first"],
+    liveUrl: "https://getperch.basecase.site/",
+    githubUrl: "",
   },
 ];
 
