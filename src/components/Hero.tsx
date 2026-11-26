@@ -45,6 +45,24 @@ export const Hero = () => {
             transition={{ delay: 0.25, duration: 0.6 }}
             className="mt-8 text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl"
           >
+            <span className="mb-3 block text-2xl font-medium tracking-normal text-muted-foreground md:text-3xl">
+              Hi{" "}
+              <motion.span
+                aria-hidden
+                className="inline-block origin-[70%_70%]"
+                animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
+                transition={{
+                  duration: 1.6,
+                  delay: 0.8,
+                  repeat: Infinity,
+                  repeatDelay: 2.5,
+                  ease: "easeInOut",
+                }}
+              >
+                👋
+              </motion.span>
+              , I&apos;m
+            </span>
             Om Patel<span className="text-primary">.</span>
             <br />
             <span className="text-muted-foreground">Software Developer.</span>
